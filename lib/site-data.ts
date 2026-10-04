@@ -2,8 +2,8 @@ export const siteConfig = {
   name: "Web Nivo",
   tagline: "Digital solutions for modern businesses",
   whatsapp: "03012542026",
-  email: "hello@webnivo.com",
-  instagram: "https://instagram.com/webnivo",
+  email: "webnivoofficial@gmail.com",
+  instagram: "https://instagram.com/webnivoofficial",
   whatsappLink: "https://wa.me/923012542026",
   projectUrl: "https://example.com",
 };

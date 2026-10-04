@@ -8,15 +8,13 @@ import {
   BriefcaseBusiness,
   Building2,
   CalendarCheck2,
+  Camera,
   Check,
   ChevronDown,
   ChevronRight,
-  CircleDashed,
   Cloud,
   Database,
   ExternalLink,
-  Globe,
-  Instagram,
   Mail,
   Menu,
   MessageCircle,
@@ -30,7 +28,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { type FormEvent, useEffect, useState } from "react";
 
 import {
   ecosystemNodes,
@@ -48,7 +46,7 @@ const sectionReveal = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, amount: 0.2 },
-  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  transition: { duration: 0.6, ease: "easeOut" as const },
 };
 
 const serviceIcons = [
@@ -67,9 +65,9 @@ const serviceIcons = [
 
 const stepList = [
   { label: "Tell us about yourself", key: "about" },
-  { label: "Business details", key: "business" },
-  { label: "What you need", key: "needs" },
-  { label: "Project context", key: "details" },
+  { label: "Your business", key: "business" },
+  { label: "Project needs", key: "needs" },
+  { label: "Project goals", key: "details" },
   { label: "Contact method", key: "contact" },
 ];
 
@@ -124,10 +122,10 @@ function SectionHeading({
   return (
     <div className="mx-auto max-w-3xl text-center">
       <p className="section-kicker">{eyebrow}</p>
-      <h2 className="mt-4 text-3xl font-semibold tracking-[-0.06em] text-[var(--text)] sm:text-5xl">
+      <h2 className="mt-4 text-[clamp(2.4rem,6vw,4.2rem)] font-semibold tracking-[-0.06em] text-[var(--text)] leading-[0.96]">
         {title}
       </h2>
-      <p className="mx-auto mt-4 max-w-xl text-base text-[var(--muted)] sm:text-lg">{description}</p>
+      <p className="mx-auto mt-4 max-w-xl text-sm text-[var(--muted)] sm:text-base lg:text-lg">{description}</p>
     </div>
   );
 }
@@ -226,10 +224,10 @@ function Hero() {
       <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8">
         <motion.div {...sectionReveal} className="relative z-10">
           <p className="section-kicker">WEB NIVO</p>
-          <h1 className="mt-6 max-w-xl text-5xl font-semibold tracking-[-0.08em] text-[var(--text)] sm:text-6xl lg:text-7xl">
+          <h1 className="mt-6 max-w-[12ch] text-[clamp(3.2rem,9vw,7rem)] font-semibold leading-[0.9] tracking-[-0.08em] text-[var(--text)]">
             Your business needs more than a website.
           </h1>
-          <p className="mt-6 max-w-xl text-lg leading-8 text-[var(--muted)]">
+          <p className="mt-6 max-w-xl text-base leading-7 text-[var(--muted)] sm:text-lg sm:leading-8">
             Web Nivo helps businesses create, connect, launch, and grow the digital systems that support visibility, sales, bookings, operations, and long-term growth.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -583,49 +581,72 @@ function AboutSection() {
         </motion.div>
 
         <motion.div {...sectionReveal} transition={{ ...sectionReveal.transition, delay: 0.1 }} className="rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-4 sm:p-6">
-          <div className="relative h-[420px] w-full overflow-hidden rounded-[1.8rem] border border-[var(--line)] bg-[radial-gradient(circle_at_center,_rgba(180,130,92,0.22),transparent_45%),linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0))]">
-            <div className="absolute inset-0 opacity-50 [background-image:linear-gradient(rgba(184,153,129,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(184,153,129,0.12)_1px,transparent_1px)] [background-size:36px_36px]" />
+          <div className="hidden md:block">
+            <div className="relative h-[420px] w-full overflow-hidden rounded-[1.8rem] border border-[var(--line)] bg-[radial-gradient(circle_at_center,_rgba(180,130,92,0.22),transparent_45%),linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0))]">
+              <div className="absolute inset-0 opacity-50 [background-image:linear-gradient(rgba(184,153,129,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(184,153,129,0.12)_1px,transparent_1px)] [background-size:36px_36px]" />
 
-            {ecosystemNodes.map((node, index) => {
-              const positions = [
-                { top: "7%", left: "48%" },
-                { top: "23%", left: "10%" },
-                { top: "22%", left: "76%" },
-                { top: "47%", left: "7%" },
-                { top: "45%", left: "79%" },
-                { top: "69%", left: "18%" },
-                { top: "70%", left: "72%" },
-                { top: "86%", left: "50%" },
-              ];
+              {ecosystemNodes.map((node, index) => {
+                const positions = [
+                  { top: "7%", left: "48%" },
+                  { top: "23%", left: "10%" },
+                  { top: "22%", left: "76%" },
+                  { top: "47%", left: "7%" },
+                  { top: "45%", left: "79%" },
+                  { top: "69%", left: "18%" },
+                  { top: "70%", left: "72%" },
+                  { top: "86%", left: "50%" },
+                ];
 
-              const position = positions[index];
+                const position = positions[index];
 
-              return (
-                <motion.button
-                  key={node.name}
-                  type="button"
-                  onMouseEnter={() => setActiveNode(index)}
-                  onFocus={() => setActiveNode(index)}
-                  className="absolute flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 rounded-full border border-[var(--line)] bg-[var(--panel)] px-3 py-2 text-xs font-medium uppercase tracking-[0.18em] text-[var(--text)] shadow-[var(--shadow-soft)]"
-                  style={{ top: position.top, left: position.left }}
-                  whileHover={{ scale: 1.04 }}
-                >
-                  {node.name}
-                </motion.button>
-              );
-            })}
+                return (
+                  <motion.button
+                    key={node.name}
+                    type="button"
+                    onMouseEnter={() => setActiveNode(index)}
+                    onFocus={() => setActiveNode(index)}
+                    className="absolute flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 rounded-full border border-[var(--line)] bg-[var(--panel)] px-3 py-2 text-xs font-medium uppercase tracking-[0.18em] text-[var(--text)] shadow-[var(--shadow-soft)]"
+                    style={{ top: position.top, left: position.left }}
+                    whileHover={{ scale: 1.04 }}
+                  >
+                    {node.name}
+                  </motion.button>
+                );
+              })}
 
-            <div className="absolute left-1/2 top-1/2 flex h-32 w-32 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--line)] bg-[var(--panel)] text-center shadow-[var(--shadow-soft)]">
-              <div>
-                <div className="mx-auto h-9 w-9 rounded-full bg-[var(--surface-alt)] ring-4 ring-[var(--beige-ring)]" />
-                <p className="mt-3 text-[10px] uppercase tracking-[0.28em] text-[var(--muted)]">Your</p>
-                <p className="text-lg font-semibold tracking-[-0.05em] text-[var(--text)]">Business</p>
+              <div className="absolute left-1/2 top-1/2 flex h-32 w-32 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--line)] bg-[var(--panel)] text-center shadow-[var(--shadow-soft)]">
+                <div>
+                  <div className="mx-auto h-9 w-9 rounded-full bg-[var(--surface-alt)] ring-4 ring-[var(--beige-ring)]" />
+                  <p className="mt-3 text-[10px] uppercase tracking-[0.28em] text-[var(--muted)]">Your</p>
+                  <p className="text-lg font-semibold tracking-[-0.05em] text-[var(--text)]">Business</p>
+                </div>
+              </div>
+
+              <div className="absolute bottom-4 left-1/2 max-w-xs -translate-x-1/2 rounded-2xl border border-[var(--line)] bg-[var(--panel)] px-4 py-3 text-center shadow-[var(--shadow-soft)]">
+                <p className="text-[10px] uppercase tracking-[0.22em] text-[var(--muted)]">Connected focus</p>
+                <p className="mt-2 text-sm text-[var(--text)]">{ecosystemNodes[activeNode].description}</p>
               </div>
             </div>
+          </div>
 
-            <div className="absolute bottom-4 left-1/2 max-w-xs -translate-x-1/2 rounded-2xl border border-[var(--line)] bg-[var(--panel)] px-4 py-3 text-center shadow-[var(--shadow-soft)]">
-              <p className="text-[10px] uppercase tracking-[0.22em] text-[var(--muted)]">Connected focus</p>
-              <p className="mt-2 text-sm text-[var(--text)]">{ecosystemNodes[activeNode].description}</p>
+          <div className="grid gap-3 md:hidden">
+            {ecosystemNodes.map((node, index) => (
+              <button
+                key={node.name}
+                type="button"
+                onClick={() => setActiveNode(index)}
+                className={`flex items-center justify-between rounded-2xl border px-3 py-2.5 text-left text-xs font-medium uppercase tracking-[0.18em] ${
+                  activeNode === index
+                    ? "border-[var(--accent)] bg-[var(--surface-alt)] text-[var(--text)]"
+                    : "border-[var(--line)] bg-[var(--surface)] text-[var(--muted)]"
+                }`}
+              >
+                <span>{node.name}</span>
+                <span className="h-2.5 w-2.5 rounded-full bg-[var(--accent)]" />
+              </button>
+            ))}
+            <div className="rounded-2xl border border-[var(--line)] bg-[var(--surface)] px-4 py-3 text-sm text-[var(--text)]">
+              {ecosystemNodes[activeNode].description}
             </div>
           </div>
         </motion.div>
@@ -748,7 +769,12 @@ function ProjectInquiry() {
 
     if (currentStep === 4) {
       if (!formData.preferredContact.trim()) nextErrors.preferredContact = "Please choose a preferred contact method.";
-      if (!formData.whatsapp.trim()) nextErrors.whatsapp = "Please add a WhatsApp number or email contact.";
+      if (formData.preferredContact === "WhatsApp" && !formData.whatsapp.trim()) {
+        nextErrors.whatsapp = "Please add a WhatsApp number.";
+      }
+      if (formData.preferredContact === "Email" && !formData.email.trim()) {
+        nextErrors.email = "Please add an email address.";
+      }
     }
 
     setErrors(nextErrors);
@@ -771,7 +797,7 @@ function ProjectInquiry() {
 
   const handleBack = () => setCurrentStep((step) => Math.max(step - 1, 0));
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!validateStep()) return;
     setSubmitted(true);
@@ -883,7 +909,7 @@ function ProjectInquiry() {
         {currentStep === 2 && (
           <div className="space-y-4">
             <div>
-              <label className="field-label">What do you need?</label>
+              <label className="field-label">Which services do you need?</label>
               <div className="mt-3 grid gap-2 sm:grid-cols-2">
                 {formServiceOptions.map((option) => {
                   const checked = formData.selectedServices.includes(option);
@@ -908,8 +934,8 @@ function ProjectInquiry() {
             </div>
 
             <div>
-              <label className="field-label" htmlFor="businessDescription">Business description</label>
-              <textarea id="businessDescription" className="field-input min-h-[120px]" value={formData.businessDescription} onChange={(event) => updateField("businessDescription", event.target.value)} placeholder="Tell us a bit about your business, offer, audience, and goals." />
+              <label className="field-label" htmlFor="businessDescription">Describe your business</label>
+              <textarea id="businessDescription" className="field-input min-h-[120px]" value={formData.businessDescription} onChange={(event) => updateField("businessDescription", event.target.value)} placeholder="Tell us a bit about your business, offer, audience, and current situation." />
               {errors.businessDescription && <p className="field-error">{errors.businessDescription}</p>}
             </div>
           </div>
@@ -918,7 +944,7 @@ function ProjectInquiry() {
         {currentStep === 3 && (
           <div className="space-y-4">
             <div>
-              <label className="field-label" htmlFor="detail">Tell us what you need.</label>
+              <label className="field-label" htmlFor="detail">What are your project goals?</label>
               <textarea id="detail" className="field-input min-h-[150px]" value={formData.detail} onChange={(event) => updateField("detail", event.target.value)} placeholder="Share the idea, the challenge, the audience, and any requirements or constraints." />
               {errors.detail && <p className="field-error">{errors.detail}</p>}
             </div>
@@ -1023,11 +1049,11 @@ function ContactSection() {
             </a>
             <a href={siteConfig.instagram} target="_blank" rel="noreferrer" className="contact-row">
               <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[var(--surface-alt)] text-[var(--accent)]">
-                <Instagram size={18} />
+                <Camera size={18} />
               </div>
               <div>
                 <p className="text-xs uppercase tracking-[0.2em] text-[var(--muted)]">Instagram</p>
-                <p className="mt-1 font-medium text-[var(--text)]">@webnivo</p>
+                <p className="mt-1 font-medium text-[var(--text)]">@webnivoofficial</p>
               </div>
             </a>
           </div>
