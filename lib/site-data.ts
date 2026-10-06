@@ -5,7 +5,6 @@ export const siteConfig = {
   email: "webnivoofficial@gmail.com",
   instagram: "https://instagram.com/webnivoofficial",
   whatsappLink: "https://wa.me/923012542026",
-  projectUrl: "https://example.com",
 };
 
 export const navItems = [
@@ -127,30 +126,35 @@ export const projects = [
     title: "Cafè Atelier",
     category: "Brand website",
     description: "A refined hospitality website designed for appointment bookings and a premium brand experience.",
-    url: "https://example.com/cafe-atelier",
+    url: "",
     accent: "from-[#dcb98a] via-[#f4e3d1] to-[#f7efe8]",
+    preview: "hospitality",
   },
   {
     title: "Northline Commerce",
     category: "E-commerce",
     description: "A clean storefront for selling lifestyle products with a conversion-focused browsing flow.",
-    url: "https://example.com/northline-commerce",
+    url: "",
     accent: "from-[#b08a61] via-[#e8d2b7] to-[#f6efe9]",
+    preview: "commerce",
   },
   {
     title: "Horizon Booking",
     category: "Booking platform",
     description: "A streamlined appointment experience for a services business with clear availability and flows.",
-    url: "https://example.com/horizon-booking",
+    url: "",
     accent: "from-[#d3b291] via-[#efe0d1] to-[#f8f3ee]",
+    preview: "booking",
   },
 ];
 
-export const whyWebNivo = [
-  "A business needs a clear online presence",
-  "A better website can open new opportunities",
-  "Bookings, customer accounts, and products all need systems that work together",
-  "Digital operations should not be managed as disconnected tasks",
+export const digitalJourney = [
+  { title: "Brand", detail: "A clear identity" },
+  { title: "Website", detail: "A useful front door" },
+  { title: "Customers", detail: "Connected experiences" },
+  { title: "Systems", detail: "Tools that work together" },
+  { title: "Operations", detail: "Smoother daily work" },
+  { title: "Growth", detail: "Room to improve" },
 ];
 
 export const faqItems = [
@@ -163,6 +167,11 @@ export const faqItems = [
     question: "Do you only work with small businesses?",
     answer:
       "Startups and small businesses are a major focus, but Web Nivo can also work with larger businesses when the project and requirements fit.",
+  },
+  {
+    question: "I don't know exactly what my business needs. Can Web Nivo help?",
+    answer:
+      "Absolutely. You don't need to know the technical solution beforehand. Web Nivo can learn about your business, identify the digital problems you're facing, and recommend a practical solution that fits.",
   },
   {
     question: "Can you build an online store?",

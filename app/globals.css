@@ -40,11 +40,12 @@ html[data-theme="dark"] {
   --color-background: var(--bg);
   --color-foreground: var(--text);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
 }
 
 body {
@@ -56,6 +57,7 @@ body {
   font-family: var(--font-geist-sans), Arial, sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 * {
@@ -71,10 +73,29 @@ a {
   text-decoration: none;
 }
 
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
 button,
 input,
 textarea {
   font: inherit;
+}
+
+section[id] {
+  scroll-margin-top: 6rem;
+}
+
+.glass-panel,
+.contact-row,
+.field-input {
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 ::selection {
@@ -160,6 +181,17 @@ textarea {
   box-shadow: 0 16px 32px rgba(127, 92, 62, 0.22);
 }
 
+.brand-button:active,
+.secondary-button:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.brand-button:focus-visible,
+.secondary-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
 .secondary-button {
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.06);
@@ -169,6 +201,10 @@ textarea {
 .secondary-button:hover {
   transform: translateY(-1px);
   border-color: rgba(145, 109, 73, 0.34);
+}
+
+.secondary-button:active {
+  background: var(--surface-alt);
 }
 
 .hero-visual {
