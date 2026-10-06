@@ -107,6 +107,23 @@ section[id] {
   padding-bottom: 5rem;
 }
 
+.site-header {
+  transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.site-header-hidden {
+  transform: translateY(calc(-100% - 0.75rem));
+}
+
+.site-nav {
+  background: color-mix(in srgb, var(--bg-soft) 93%, transparent);
+  border: 1px solid var(--line);
+  box-shadow: 0 12px 30px var(--shadow-color);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
 .glass-panel {
   background: rgba(255, 255, 255, 0.18);
   border: 1px solid var(--line);
@@ -179,6 +196,32 @@ section[id] {
 .brand-button:hover {
   transform: translateY(-1px);
   box-shadow: 0 16px 32px rgba(127, 92, 62, 0.22);
+}
+
+.service-card {
+  transition:
+    background-color 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.service-card:hover,
+.service-card:focus-visible {
+  border-color: var(--beige-ring);
+  background-color: var(--bg-soft);
+  box-shadow: var(--shadow-soft);
+}
+
+.service-arrow {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.contact-cta-panel {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(183, 142, 105, 0.12), transparent 38%),
+    var(--panel);
 }
 
 .brand-button:active,
@@ -293,6 +336,19 @@ section[id] {
   }
 }
 
+@media (min-width: 640px) {
+  .service-arrow {
+    opacity: 0;
+    transform: translateX(-4px);
+  }
+
+  .service-card:hover .service-arrow,
+  .service-card:focus-visible .service-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 @media (max-width: 640px) {
   .section-kicker {
     letter-spacing: 0.18em;
@@ -312,5 +368,9 @@ section[id] {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .site-header {
+    will-change: auto;
   }
 }

@@ -43,10 +43,10 @@ import {
 } from "@/lib/site-data";
 
 const sectionReveal = {
-  initial: { opacity: 0, y: 30 },
+  initial: { opacity: 0, y: 18 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, amount: 0.2 },
-  transition: { duration: 0.6, ease: "easeOut" as const },
+  transition: { duration: 0.52, ease: [0.22, 1, 0.36, 1] as const },
 };
 
 const serviceIcons = [
@@ -123,18 +123,19 @@ function SectionHeading({
   description: string;
 }) {
   return (
-    <div className="mx-auto max-w-3xl text-center">
+    <motion.div {...sectionReveal} className="mx-auto max-w-3xl text-center">
       <p className="section-kicker">{eyebrow}</p>
-      <h2 className="mt-4 text-[clamp(2.4rem,6vw,4.2rem)] font-semibold tracking-[-0.06em] text-[var(--text)] leading-[0.96]">
+      <h2 className="mt-4 text-[clamp(2.5rem,6vw,4.5rem)] font-semibold tracking-[-0.065em] text-[var(--text)] leading-[0.94]">
         {title}
       </h2>
-      <p className="mx-auto mt-4 max-w-xl text-sm text-[var(--muted)] sm:text-base lg:text-lg">{description}</p>
-    </div>
+      <p className="mx-auto mt-5 max-w-xl text-sm leading-6 text-[var(--muted)] sm:text-base sm:leading-7 lg:text-lg">{description}</p>
+    </motion.div>
   );
 }
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -152,12 +153,52 @@ function Navbar() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [menuOpen]);
 
+  useEffect(() => {
+    if (menuOpen) return;
+
+    let lastScrollY = window.scrollY;
+    let direction: "up" | "down" | null = null;
+    let directionTravel = 0;
+    const scrollThreshold = 12;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const delta = currentScrollY - lastScrollY;
+
+      if (currentScrollY <= 24) {
+        setIsHidden(false);
+        directionTravel = 0;
+        direction = null;
+      } else if (Math.abs(delta) > 0) {
+        const nextDirection = delta > 0 ? "down" : "up";
+        if (nextDirection !== direction) {
+          direction = nextDirection;
+          directionTravel = 0;
+        }
+        directionTravel += Math.abs(delta);
+
+        if (directionTravel >= scrollThreshold) {
+          setIsHidden(nextDirection === "down");
+          directionTravel = 0;
+        }
+      }
+
+      lastScrollY = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [menuOpen]);
+
   const closeMenu = () => setMenuOpen(false);
 
   return (
-    <header className="sticky top-0 z-50 pt-3">
+    <header
+      className={`site-header fixed inset-x-0 top-0 z-50 pt-3 ${isHidden ? "site-header-hidden" : ""}`}
+      onFocusCapture={() => setIsHidden(false)}
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <nav className="glass-panel flex items-center justify-between rounded-full px-3 py-2 sm:px-4">
+        <nav className="site-nav flex items-center justify-between rounded-full px-3 py-2 sm:px-4">
           <Link href="#home" className="flex items-center gap-3" aria-label="Web Nivo home">
             <Image src="/web-nivo-logo.png" alt="Web Nivo logo" width={120} height={44} priority className="h-8 w-auto sm:h-10" />
           </Link>
@@ -186,7 +227,10 @@ function Navbar() {
               aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
               aria-expanded={menuOpen}
               aria-controls="mobile-navigation"
-              onClick={() => setMenuOpen((open) => !open)}
+              onClick={() => {
+                setIsHidden(false);
+                setMenuOpen((open) => !open);
+              }}
             >
               {menuOpen ? <X size={18} /> : <Menu size={18} />}
             </button>
@@ -244,14 +288,14 @@ function Hero() {
             Your business needs more than a website.
           </h1>
           <p className="mt-6 max-w-xl text-base leading-7 text-[var(--muted)] sm:text-lg sm:leading-8">
-            We help businesses create, connect, launch, and grow the digital systems behind their online presence—from websites and stores to booking tools and custom applications.
+            Web Nivo designs and builds websites, online stores, booking tools, and custom applications—connected to the systems your business relies on.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <a href="#contact" className="brand-button inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-base font-medium text-white">
+            <a href="#contact" className="brand-button group/cta inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-base font-semibold text-white">
               Start a Project
-              <ArrowRight size={17} />
+              <ArrowRight size={17} className="transition-transform duration-200 group-hover/cta:translate-x-1" />
             </a>
-            <a href="#services" className="secondary-button inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-base font-medium text-[var(--text)]">
+            <a href="#services" className="secondary-button inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-medium text-[var(--text)] sm:text-base">
               Explore What We Do
             </a>
           </div>
@@ -371,12 +415,12 @@ function MissionSection() {
     <section className="section-shell">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
         <motion.div {...sectionReveal} className="rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-6 sm:p-8">
-          <p className="section-kicker">A broader view</p>
+          <p className="section-kicker">A connected foundation</p>
           <h2 className="mt-5 text-3xl font-semibold tracking-[-0.06em] text-[var(--text)] sm:text-5xl">
-            A website is only the beginning.
+            Digital pieces work better together.
           </h2>
           <p className="mt-4 max-w-lg text-base leading-7 text-[var(--muted)] sm:text-lg">
-            A website works best when it fits into the way your business attracts, serves, and keeps customers.
+            From the first customer visit to the tools behind daily operations, each part should feel connected.
           </p>
         </motion.div>
 
@@ -414,8 +458,8 @@ function WhySection() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Why Web Nivo"
-          title="Businesses need a digital partner, not just a one-off build."
-          description="We look at how each part of your digital presence can support the next."
+          title="Thoughtful work, built around how you operate."
+          description="A considered mix of design, engineering, and practical business thinking—before, during, and after launch."
         />
 
         <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
@@ -446,6 +490,64 @@ function WhySection() {
   );
 }
 
+function BusinessFitSection() {
+  const businessTypes = [
+    {
+      icon: Building2,
+      title: "Restaurants",
+      detail: "Brand-led websites, digital menus, reservations, and ordering.",
+    },
+    {
+      icon: ShoppingBag,
+      title: "Retail",
+      detail: "Online stores, product catalogs, and connected commerce tools.",
+    },
+    {
+      icon: CalendarCheck2,
+      title: "Service businesses",
+      detail: "Booking flows, lead-generation websites, and customer accounts.",
+    },
+    {
+      icon: MonitorSmartphone,
+      title: "Growing businesses",
+      detail: "Custom applications, databases, and systems built to scale.",
+    },
+  ];
+
+  return (
+    <section className="section-shell !py-12 sm:!py-16">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+          <div>
+            <p className="section-kicker">Built for businesses like yours</p>
+            <h2 className="mt-4 max-w-lg text-[clamp(2.25rem,5vw,3.5rem)] font-semibold leading-[0.98] tracking-[-0.065em] text-[var(--text)]">
+              Whatever you do, there&apos;s a useful next step.
+            </h2>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {businessTypes.map(({ icon: Icon, title, detail }, index) => (
+              <motion.article
+                key={title}
+                {...sectionReveal}
+                transition={{ ...sectionReveal.transition, delay: index * 0.04 }}
+                className="rounded-[1.35rem] border border-[var(--line)] bg-[var(--panel)] p-4 sm:p-5"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--surface-alt)] text-[var(--accent)]">
+                    <Icon size={19} aria-hidden="true" />
+                  </span>
+                  <h3 className="text-base font-semibold tracking-[-0.03em] text-[var(--text)]">{title}</h3>
+                </div>
+                <p className="mt-3 text-sm leading-6 text-[var(--muted)]">{detail}</p>
+              </motion.article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function ServicesSection() {
   return (
     <section id="services" className="section-shell">
@@ -465,12 +567,12 @@ function ServicesSection() {
                 key={service.title}
                 {...sectionReveal}
                 transition={{ ...sectionReveal.transition, delay: index * 0.04 }}
-                whileHover={{ y: -6 }}
+                whileHover={{ y: -4 }}
                 tabIndex={0}
-                className="group rounded-[1.6rem] border border-[var(--line)] bg-[var(--panel)] p-5 shadow-[var(--shadow-soft)]"
+                className="service-card group rounded-[1.6rem] border border-[var(--line)] bg-[var(--panel)] p-5 shadow-[var(--shadow-soft)]"
               >
                 <div className="flex items-start justify-between gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--surface-alt)] text-[var(--accent)] transition group-hover:scale-110 group-hover:text-[var(--text)]">
+                  <div className="service-icon flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--surface-alt)] text-[var(--accent)] transition group-hover:scale-105 group-hover:text-[var(--text)]">
                     <Icon size={22} />
                   </div>
                   <div className="rounded-full border border-[var(--line)] bg-[var(--surface)] px-2.5 py-1 text-[10px] uppercase tracking-[0.2em] text-[var(--muted)]">
@@ -479,9 +581,10 @@ function ServicesSection() {
                 </div>
                 <h3 className="mt-6 text-xl font-semibold tracking-[-0.05em] text-[var(--text)]">{service.title}</h3>
                 <p className="mt-3 text-base leading-7 text-[var(--muted)]">{service.description}</p>
-                <p className="mt-4 text-sm leading-6 text-[var(--muted)] opacity-100 transition duration-200 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100">
+                <p className="mt-4 text-sm leading-6 text-[var(--muted)]">
                   {service.detail}
                 </p>
+                <ChevronRight aria-hidden="true" size={17} className="service-arrow ml-auto mt-3 text-[var(--accent)]" />
               </motion.article>
             );
           })}
@@ -497,8 +600,8 @@ function ProcessSection() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="How we work"
-          title="A process built for clarity, momentum, and realistic progress."
-          description="From the first questions through launch and beyond, each stage builds on the last."
+          title="From first conversation to a dependable launch."
+          description="A clear sequence of decisions and delivery, with room for the right support after launch."
         />
 
         <div aria-hidden="true" className="relative mx-auto mt-10 hidden max-w-6xl items-center justify-between px-[6.25%] xl:flex">
@@ -551,7 +654,7 @@ function WorkSection() {
         <SectionHeading
           eyebrow="Work · Demo concepts"
           title="Different businesses. Different digital needs."
-          description="These concept previews show how the same thoughtful process can shape distinct online experiences."
+          description="Explore how a brand, a storefront, and a booking flow can each become a complete online experience."
         />
 
         <div className="mt-10 grid gap-5 lg:grid-cols-3">
@@ -560,10 +663,10 @@ function WorkSection() {
               key={project.title}
               {...sectionReveal}
               transition={{ ...sectionReveal.transition, delay: index * 0.05 }}
-              whileHover={{ y: -8 }}
+              whileHover={{ y: -5 }}
               className="group overflow-hidden rounded-[1.8rem] border border-[var(--line)] bg-[var(--panel)] shadow-[var(--shadow-soft)]"
             >
-              <div className={`relative h-64 overflow-hidden bg-gradient-to-br ${project.accent} p-4 sm:p-5`}>
+              <div className={`relative h-72 overflow-hidden bg-gradient-to-br ${project.accent} p-4 sm:h-80 sm:p-5`}>
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_10%,rgba(255,255,255,.7),transparent_35%)]" />
                 <div className="relative h-full overflow-hidden rounded-[1.25rem] border border-white/55 bg-[#fbf8f4] shadow-[0_18px_45px_rgba(54,39,28,0.18)] transition-transform duration-500 group-hover:scale-[1.025]">
                   <div className="flex h-8 items-center gap-1.5 border-b border-[#e8dfd5] px-3">
@@ -644,7 +747,7 @@ function WorkSection() {
                   </a>
                 ) : (
                   <a href="#contact" className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-[var(--accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]">
-                    Discuss a similar project
+                    Start a similar project
                     <ArrowRight size={15} />
                   </a>
                 )}
@@ -672,30 +775,30 @@ function AboutSection() {
       <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8">
         <motion.div {...sectionReveal} className="rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-6 sm:p-8">
           <p className="section-kicker">About Web Nivo</p>
-          <h2 className="mt-5 text-3xl font-semibold tracking-[-0.06em] text-[var(--text)] sm:text-5xl">
-            Helping businesses build a digital presence that actually supports growth.
+          <h2 className="mt-5 text-[clamp(2.4rem,5vw,3.8rem)] font-semibold leading-[0.98] tracking-[-0.065em] text-[var(--text)]">
+            A small team with a systems-level view.
           </h2>
           <p className="mt-4 text-base leading-7 text-[var(--muted)] sm:text-lg">
-            Web Nivo exists to help businesses establish their online presence, solve practical digital problems, and create systems that work together rather than in isolation.
+            Web Nivo brings design, engineering, and practical business thinking together to make technology feel clear, useful, and considered.
           </p>
           <div className="mt-6 space-y-4">
             <div className="flex items-start gap-3">
               <div className="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-[var(--surface-alt)] text-[var(--accent)]">
                 <Check size={14} />
               </div>
-              <p className="text-base text-[var(--muted)]">Clear thinking around brand, systems, and customer experience.</p>
+              <p className="text-base text-[var(--muted)]">We start with your business context, not a one-size-fits-all template.</p>
             </div>
             <div className="flex items-start gap-3">
               <div className="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-[var(--surface-alt)] text-[var(--accent)]">
                 <Check size={14} />
               </div>
-              <p className="text-base text-[var(--muted)]">Practical digital support across websites, products, operations, and growth.</p>
+              <p className="text-base text-[var(--muted)]">Design and engineering stay connected to everyday operations.</p>
             </div>
             <div className="flex items-start gap-3">
               <div className="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-[var(--surface-alt)] text-[var(--accent)]">
                 <Check size={14} />
               </div>
-              <p className="text-base text-[var(--muted)]">A realistic partnership that helps your business function better online.</p>
+              <p className="text-base text-[var(--muted)]">Thoughtful support continues beyond the day your project launches.</p>
             </div>
           </div>
         </motion.div>
@@ -790,7 +893,7 @@ function FaqSection() {
         <SectionHeading
           eyebrow="FAQ"
           title="Questions people usually ask before starting."
-          description="A clear conversation is usually the easiest way to decide what is right for a project and what kind of digital support a business actually needs."
+          description="Straight answers about scope, technology, and what happens after launch."
         />
 
         <div className="mt-10 space-y-3">
@@ -1049,7 +1152,7 @@ function ProjectInquiry() {
         />
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-5">
+      <form id="project-inquiry" onSubmit={handleSubmit} className="space-y-5">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={currentStep}
@@ -1209,14 +1312,19 @@ function ContactSection() {
   return (
     <section id="contact" className="section-shell pb-24">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 sm:px-6 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:px-8">
-        <motion.div {...sectionReveal} className="min-w-0 rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-6 sm:p-8">
+        <motion.div {...sectionReveal} className="contact-cta-panel min-w-0 rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-6 sm:p-9">
           <p className="section-kicker">Let&apos;s talk</p>
-          <h2 className="mt-5 text-3xl font-semibold tracking-[-0.06em] text-[var(--text)] sm:text-5xl">
+          <h2 className="mt-5 text-[clamp(2.6rem,6vw,4.5rem)] font-semibold leading-[0.94] tracking-[-0.07em] text-[var(--text)]">
             Let&apos;s build more than a website.
           </h2>
-          <p className="mt-4 max-w-lg text-base leading-7 text-[var(--muted)] sm:text-lg">
-            Whether you need a new online presence, a booking flow, a storefront, a database-backed system, or a custom digital solution, start the conversation with Web Nivo.
+          <p className="mt-5 max-w-lg text-base leading-7 text-[var(--muted)] sm:text-lg">
+            Tell us what you&apos;re building, where you&apos;re stuck, or what you want to improve. We&apos;ll help you find the right next step.
           </p>
+
+          <a href="#project-inquiry" className="brand-button group/cta mt-7 inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-base font-semibold text-white">
+            Start Your Project
+            <ArrowRight size={17} className="transition-transform duration-200 group-hover/cta:translate-x-1" />
+          </a>
 
           <div className="mt-8 space-y-4">
             <a href={siteConfig.whatsappLink} target="_blank" rel="noreferrer" className="contact-row">
@@ -1305,7 +1413,7 @@ function Footer() {
         <div>
           <Image src="/web-nivo-logo.png" alt="Web Nivo logo" width={120} height={44} className="h-10 w-auto" />
           <p className="mt-4 max-w-md text-base leading-7 text-[var(--muted)]">
-            Web Nivo helps businesses build and grow their digital presence through websites, applications, systems, and other digital solutions.
+            Digital experiences and connected systems, thoughtfully built around your business.
           </p>
         </div>
 
@@ -1343,10 +1451,11 @@ export default function Home() {
     <MotionConfig reducedMotion="user">
       <div>
       <Navbar />
-      <main>
+      <main className="pt-[4.75rem] sm:pt-20">
         <Hero />
         <MissionSection />
         <WhySection />
+        <BusinessFitSection />
         <ServicesSection />
         <ProcessSection />
         <WorkSection />

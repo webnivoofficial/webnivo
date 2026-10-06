@@ -123,9 +123,9 @@ export const processSteps = [
 
 export const projects = [
   {
-    title: "Cafè Atelier",
+    title: "Café Atelier",
     category: "Brand website",
-    description: "A refined hospitality website designed for appointment bookings and a premium brand experience.",
+    description: "A warm hospitality experience with a considered menu, reservations, and a clear route to visit.",
     url: "",
     accent: "from-[#dcb98a] via-[#f4e3d1] to-[#f7efe8]",
     preview: "hospitality",
@@ -149,12 +149,12 @@ export const projects = [
 ];
 
 export const digitalJourney = [
-  { title: "Brand", detail: "A clear identity" },
-  { title: "Website", detail: "A useful front door" },
-  { title: "Customers", detail: "Connected experiences" },
-  { title: "Systems", detail: "Tools that work together" },
-  { title: "Operations", detail: "Smoother daily work" },
-  { title: "Growth", detail: "Room to improve" },
+  { title: "Business-first", detail: "Start with the goals and realities behind your brief." },
+  { title: "Joined-up", detail: "Connect the experience customers see to the systems behind it." },
+  { title: "Purpose-built", detail: "Choose the right scope and functionality for the job." },
+  { title: "Clear process", detail: "Know what is happening, what comes next, and why." },
+  { title: "Lasting support", detail: "Get practical care and improvements after launch." },
+  { title: "Room to grow", detail: "Build a solid foundation that can evolve with your business." },
 ];
 
 export const faqItems = [
