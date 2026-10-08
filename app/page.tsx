@@ -9,6 +9,7 @@ import {
   Camera,
   Check,
   ChevronDown,
+  Cloud,
   Database,
   ExternalLink,
   Mail,
@@ -19,6 +20,7 @@ import {
   ShoppingBag,
   Sparkles,
   Sun,
+  Wrench,
   X,
   UsersRound,
 } from "lucide-react";
@@ -288,84 +290,53 @@ function Hero() {
 
         <motion.div {...sectionReveal} transition={{ ...sectionReveal.transition, delay: 0.1 }} className="relative z-10">
           <div className="hero-visual">
-            <div className="hero-glow" />
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 580 580"
-              className="pointer-events-none absolute inset-0 h-full w-full"
-              fill="none"
-            >
-              <path d="M290 290 142 116M290 290 438 126M290 290 148 432M290 290 438 436" stroke="var(--accent)" strokeOpacity=".25" strokeWidth="1.5" strokeDasharray="5 7" />
-              <circle cx="290" cy="290" r="126" stroke="var(--accent)" strokeOpacity=".12" />
-              <circle cx="290" cy="290" r="178" stroke="var(--accent)" strokeOpacity=".08" strokeDasharray="3 8" />
-            </svg>
-            <div
-              className="hero-float-card absolute left-8 top-10 w-48 rounded-[1.5rem] border border-[var(--line)] bg-[var(--panel)] p-4 shadow-[var(--shadow-soft)]"
-            >
-              <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.22em] text-[var(--muted)]">
-                <span>Website</span>
-                <span className="rounded-full bg-[var(--chip)] px-2 py-1 text-[9px] text-[var(--text)]">Live</span>
+            <div className="hero-product-window">
+              <div className="product-window-bar">
+                <div className="window-dots"><i /><i /><i /></div>
+                <span className="window-address">cafeatelier.com</span>
+                <span className="window-live"><i /> Live</span>
               </div>
-              <div className="mt-4 space-y-2">
-                <div className="h-2.5 w-24 rounded-full bg-[var(--surface-alt)]" />
-                <div className="h-2.5 w-16 rounded-full bg-[var(--surface-alt)]" />
-                <div className="mt-4 grid grid-cols-2 gap-2">
-                  <div className="h-12 rounded-xl bg-[var(--surface-alt)]" />
-                  <div className="h-12 rounded-xl bg-[var(--surface-alt)]" />
+              <div className="cafe-site-preview">
+                <div className="cafe-site-nav">
+                  <span>ATELIER<span className="cafe-mark">.</span></span>
+                  <div><span>Our menu</span><span>Visit us</span></div>
+                  <span className="cafe-nav-button">Book a table</span>
+                </div>
+                <div className="cafe-site-hero">
+                  <div className="cafe-site-copy">
+                    <span className="mock-eyebrow">COFFEE · KITCHEN · COMMUNITY</span>
+                    <h2>Make room<br />for a good day.</h2>
+                    <p>Thoughtful coffee. Something good from the kitchen.</p>
+                    <span className="cafe-visit-button">Find your table <ArrowRight size={12} /></span>
+                  </div>
+                  <div className="cafe-scene" aria-hidden="true">
+                    <div className="cafe-sun" />
+                    <div className="cafe-vase"><i /></div>
+                    <div className="cafe-cup"><i /></div>
+                    <div className="cafe-table" />
+                  </div>
+                </div>
+                <div className="cafe-site-footer">
+                  <span>Seasonal menu</span><span>Open daily · 8am—6pm</span><span>Made for lingering</span>
                 </div>
               </div>
             </div>
-
-            <div
-              className="hero-float-card absolute right-6 top-12 w-44 rounded-[1.5rem] border border-[var(--line)] bg-[var(--panel)] p-4 shadow-[var(--shadow-soft)]"
-            >
-              <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.22em] text-[var(--muted)]">
-                <span>Auth</span>
-                <span className="flex h-2.5 w-2.5 rounded-full bg-[var(--accent)]" />
-              </div>
-              <div className="mt-4 space-y-3">
-                <div className="h-8 rounded-xl bg-[var(--surface-alt)]" />
-                <div className="h-8 rounded-xl bg-[var(--surface-alt)]" />
-              </div>
+            <div className="hero-product-widget hero-booking-widget">
+              <div className="widget-heading"><span>Today&apos;s bookings</span><CalendarCheck2 size={14} /></div>
+              <strong>24 <small>reservations</small></strong>
+              <div className="widget-booking-row"><span>10:30</span><span>Table for two</span><i /></div>
+              <div className="widget-booking-row"><span>12:00</span><span>Table for four</span><i /></div>
             </div>
-
-            <div
-              className="hero-float-card absolute left-12 bottom-10 w-52 rounded-[1.5rem] border border-[var(--line)] bg-[var(--panel)] p-4 shadow-[var(--shadow-soft)]"
-            >
-              <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.22em] text-[var(--muted)]">
-                <span>Bookings</span>
-                <span className="text-[var(--text)]">12</span>
-              </div>
-              <div className="mt-4 grid grid-cols-3 gap-2">
-                <div className="h-10 rounded-xl bg-[var(--surface-alt)]" />
-                <div className="h-10 rounded-xl bg-[var(--surface-alt)]" />
-                <div className="h-10 rounded-xl bg-[var(--surface-alt)]" />
-              </div>
-            </div>
-
-            <div
-              className="hero-float-card absolute bottom-8 right-10 w-40 rounded-[1.5rem] border border-[var(--line)] bg-[var(--panel)] p-4 shadow-[var(--shadow-soft)]"
-            >
-              <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.22em] text-[var(--muted)]">
-                <span>Data</span>
-                <span className="rounded-full bg-[var(--surface-alt)] px-2 py-1 text-[9px] text-[var(--text)]">Sync</span>
-              </div>
-              <div className="mt-4 flex items-center gap-2">
-                {Array.from({ length: 5 }).map((_, idx) => (
-                  <div key={idx} className="h-12 flex-1 rounded-t-xl bg-[var(--surface-alt)]" style={{ height: `${18 + idx * 12}px` }} />
+            <div className="hero-product-widget hero-data-widget">
+              <div className="widget-heading"><span>Store activity</span><BarChart3 size={14} /></div>
+              <div className="activity-summary"><strong>$4,280</strong><span>+12.8%</span></div>
+              <div className="activity-chart" aria-hidden="true">
+                {[32, 48, 39, 65, 48, 72, 55, 84, 67, 100, 74, 91].map((height, index) => (
+                  <i key={index} style={{ height: `${height}%` }} />
                 ))}
               </div>
             </div>
-
-            <div className="absolute left-1/2 top-1/2 h-44 w-44 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[var(--line)] bg-[var(--panel)] shadow-[var(--shadow-soft)] backdrop-blur-xl">
-              <div className="flex h-full flex-col items-center justify-center text-center">
-                <div className="mb-2 h-9 w-9 rounded-full bg-[var(--surface-alt)] ring-4 ring-[var(--beige-ring)]" />
-                <span className="text-[10px] uppercase tracking-[0.30em] text-[var(--muted)]">Business</span>
-                <span className="mt-2 text-xl font-semibold tracking-[-0.05em] text-[var(--text)]">Web Nivo</span>
-              </div>
-            </div>
-
-            <div className="absolute inset-0 rounded-[2rem] border border-[var(--line)] bg-[linear-gradient(135deg,rgba(255,255,255,0.44),rgba(255,255,255,0.02))]" />
+            <div className="hero-system-note"><span /> Website <b>·</b> Bookings <b>·</b> Data</div>
           </div>
         </motion.div>
       </div>
@@ -406,12 +377,17 @@ function ServicesSection() {
       !featuredServices.some((group) => group.services.includes(service.title)),
   );
 
-  const systemStages = [
+  const ecosystemServices = [
     { label: "Website", icon: MonitorSmartphone },
-    { label: "Customers", icon: UsersRound },
-    { label: "Data", icon: Database },
-    { label: "Bookings & orders", icon: CalendarCheck2 },
+    { label: "Commerce", icon: ShoppingBag },
+    { label: "Bookings", icon: CalendarCheck2 },
+    { label: "Web app", icon: Sparkles },
+    { label: "Accounts", icon: UsersRound },
+    { label: "Database", icon: Database },
     { label: "Admin", icon: BarChart3 },
+    { label: "Analytics", icon: BarChart3 },
+    { label: "Hosting", icon: Cloud },
+    { label: "Ongoing care", icon: Wrench },
   ];
 
   return (
@@ -458,30 +434,70 @@ function ServicesSection() {
           <motion.div {...sectionReveal} transition={{ ...sectionReveal.transition, delay: 0.08 }} className="system-board">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="section-kicker">The connected system</p>
+                <p className="section-kicker">One connected experience</p>
                 <h3 className="mt-2 text-xl font-semibold tracking-[-0.045em] text-[var(--text)] sm:text-2xl">
-                  From first click to daily operations.
+                  Everything working together.
                 </h3>
               </div>
-              <span className="hidden h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--surface-alt)] text-[var(--accent)] sm:flex">
-                <Sparkles size={18} aria-hidden="true" />
-              </span>
             </div>
 
-            <ol className="system-flow mt-7" aria-label="How a digital experience connects">
-              {systemStages.map(({ label, icon: Icon }) => (
-                <li className="system-stage" key={label}>
-                  <span className="system-stage-icon">
-                    <Icon size={18} aria-hidden="true" />
-                  </span>
-                  <span className="system-stage-label">{label}</span>
+            <div className="admin-preview" aria-label="Example business administration dashboard">
+              <div className="admin-preview-sidebar">
+                <span className="admin-brand">N<span>.</span></span>
+                <i className="active"><BarChart3 size={15} /></i>
+                <i><CalendarCheck2 size={15} /></i>
+                <i><UsersRound size={15} /></i>
+                <i><Database size={15} /></i>
+                <i><Wrench size={15} /></i>
+              </div>
+              <div className="admin-preview-main">
+                <div className="admin-preview-top">
+                  <div><span>MONDAY, OCTOBER 06</span><strong>Good morning, Alex</strong></div>
+                  <span className="admin-avatar">A</span>
+                </div>
+                <div className="admin-metrics">
+                  <div><span>Revenue</span><strong>$8,420</strong><i>+12.8%</i></div>
+                  <div><span>Bookings</span><strong>36</strong><i>+8.2%</i></div>
+                  <div><span>Customers</span><strong>248</strong><i>+16.4%</i></div>
+                </div>
+                <div className="admin-activity">
+                  <div className="admin-chart">
+                    <div className="admin-chart-label"><span>Weekly activity</span><b>This week⌄</b></div>
+                    <div className="admin-chart-plot">
+                      <span /><span /><span /><span />
+                      <svg viewBox="0 0 360 88" preserveAspectRatio="none" aria-hidden="true">
+                        <path d="M0 69 C28 60 37 67 62 48 S104 62 130 38 S171 56 202 31 S244 46 269 20 S321 34 360 5" />
+                        <path className="chart-fill" d="M0 69 C28 60 37 67 62 48 S104 62 130 38 S171 56 202 31 S244 46 269 20 S321 34 360 5 V88 H0Z" />
+                      </svg>
+                    </div>
+                    <div className="admin-chart-days"><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span></div>
+                  </div>
+                  <div className="admin-upcoming">
+                    <div><span>Next booking</span><b>View all</b></div>
+                    <strong>11:30 <small>AM</small></strong>
+                    <span>Olivia M. · Table for two</span>
+                    <i>Confirmed</i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="ecosystem-caption">
+              <span>One system, built around your business</span>
+              <span className="ecosystem-caption-line" />
+            </div>
+            <ul className="ecosystem-services" aria-label="Connected digital capabilities">
+              {ecosystemServices.map(({ label, icon: Icon }) => (
+                <li key={label}>
+                  <Icon size={14} aria-hidden="true" />
+                  <span>{label}</span>
                 </li>
               ))}
-            </ol>
+            </ul>
 
             <div className="system-board-footer">
               <span className="system-status-dot" aria-hidden="true" />
-              <span>Designed around the way your business works</span>
+              <span>From the customer experience to the tools behind it</span>
             </div>
           </motion.div>
         </div>
@@ -600,49 +616,82 @@ function WorkSection() {
                     <span className="ml-auto h-1.5 w-16 rounded-full bg-[#ebe4dc]" />
                   </div>
                   {project.preview === "hospitality" && (
-                    <div className="grid h-[calc(100%-2rem)] grid-cols-[1.1fr_0.9fr]">
-                      <div className="flex flex-col justify-center p-4 sm:p-5">
-                        <span className="text-[8px] uppercase tracking-[0.28em] text-[#91735b]">A place to pause</span>
-                        <p className="mt-2 text-xl font-semibold leading-[0.95] tracking-[-0.06em] text-[#32261e] sm:text-2xl">Slow mornings.<br />Good coffee.</p>
-                        <span className="mt-4 w-fit rounded-full bg-[#4f3929] px-3 py-1.5 text-[8px] uppercase tracking-[0.15em] text-white">Explore the menu</span>
+                    <div className="project-cafe-page">
+                      <div className="project-site-nav">
+                        <strong>CAFÉ ATELIER<span>.</span></strong>
+                        <div><span>Our story</span><span>Menu</span><span>Visit</span></div>
+                        <span className="project-nav-action">Find a table</span>
                       </div>
-                      <div className="m-3 rounded-[1rem] bg-[linear-gradient(155deg,#a27754,#e5c9a9_48%,#f1e3d4)]">
-                        <div className="ml-auto mt-8 h-20 w-20 rounded-full border-[8px] border-[#fbf8f4]/45 bg-[#79543a]/45 sm:h-24 sm:w-24" />
+                      <div className="project-cafe-hero">
+                        <div className="project-cafe-copy">
+                          <span className="project-overline">A NEIGHBOURHOOD CAFÉ</span>
+                          <h4>Slow mornings.<br />Good coffee.</h4>
+                          <p>Seasonal plates and coffee worth sitting down for.</p>
+                          <span className="project-cta-dark">Explore the menu <ArrowRight size={12} /></span>
+                        </div>
+                        <div className="project-cafe-art" aria-hidden="true">
+                          <div className="cafe-art-window" />
+                          <div className="cafe-art-plant"><i /><i /><i /></div>
+                          <div className="cafe-art-cup"><i /></div>
+                          <div className="cafe-art-saucer" />
+                          <div className="cafe-art-shadow" />
+                        </div>
                       </div>
+                      <div className="project-cafe-meta"><span>GOOD COFFEE, EVERY DAY</span><span>OPEN 8AM — 6PM</span></div>
                     </div>
                   )}
                   {project.preview === "commerce" && (
-                    <div className="p-4 sm:p-5">
-                      <div className="flex items-center justify-between">
-                        <span className="text-[9px] font-semibold tracking-[0.18em] text-[#35281f]">OBJECTS / 01</span>
-                        <span className="text-[8px] uppercase tracking-[0.15em] text-[#91735b]">Shop collection</span>
+                    <div className="project-shop-page">
+                      <div className="project-site-nav">
+                        <strong>NORTHLINE<span>®</span></strong>
+                        <div><span>New arrivals</span><span>Home</span><span>Objects</span></div>
+                        <span className="shop-bag">Bag <i>2</i></span>
                       </div>
-                      <div className="mt-3 grid grid-cols-3 gap-2">
-                        {["#bd9977", "#ddd0c1", "#8f765f"].map((color) => (
-                          <div key={color} className="aspect-[0.82] rounded-xl p-2" style={{ background: `linear-gradient(155deg, ${color}, #f1e8dc)` }}>
-                            <div className="mx-auto mt-4 h-10 w-8 rounded-[45%_45%_35%_35%] bg-white/60 sm:h-12 sm:w-10" />
-                          </div>
-                        ))}
+                      <div className="project-shop-intro">
+                        <div><span className="project-overline">OBJECTS FOR SLOWER LIVING</span><h4>Made to be<br />lived with.</h4></div>
+                        <span>Thoughtful pieces for<br />everyday rituals.</span>
                       </div>
-                      <div className="mt-3 h-2 w-24 rounded-full bg-[#d9cabb]" />
-                      <div className="mt-2 h-1.5 w-16 rounded-full bg-[#eee6dd]" />
+                      <div className="shop-product-grid">
+                        <div className="shop-product">
+                          <div className="shop-object object-vase"><i /></div>
+                          <div><span>FORMA STUDIO</span><b>Stoneware vase</b><strong>$68</strong></div>
+                        </div>
+                        <div className="shop-product">
+                          <div className="shop-object object-lamp"><i /></div>
+                          <div><span>ATELIER NORTH</span><b>Table light</b><strong>$124</strong></div>
+                        </div>
+                        <div className="shop-product">
+                          <div className="shop-object object-bowl"><i /></div>
+                          <div><span>STUDIO CERAMIC</span><b>Everyday bowl</b><strong>$42</strong></div>
+                        </div>
+                      </div>
                     </div>
                   )}
                   {project.preview === "booking" && (
-                    <div className="grid h-[calc(100%-2rem)] grid-cols-[0.8fr_1.2fr] gap-3 p-4 sm:p-5">
-                      <div className="flex flex-col justify-center">
-                        <span className="text-[8px] uppercase tracking-[0.24em] text-[#91735b]">Make time</span>
-                        <p className="mt-2 text-lg font-semibold leading-[1] tracking-[-0.05em] text-[#35281f] sm:text-xl">Your next<br />appointment.</p>
-                        <div className="mt-3 h-6 w-20 rounded-full bg-[#4f3929]" />
+                    <div className="project-booking-page">
+                      <div className="project-site-nav">
+                        <strong>HORIZON<span>.</span></strong>
+                        <div><span>Services</span><span>Our team</span><span>About</span></div>
+                        <span className="project-nav-action">Book now</span>
                       </div>
-                      <div className="my-auto rounded-xl border border-[#e5dbcf] bg-white p-3">
-                        <div className="mb-3 flex items-center justify-between text-[8px] text-[#58483d]">
-                          <span>Choose a time</span><span>›</span>
+                      <div className="project-booking-layout">
+                        <div className="booking-copy">
+                          <span className="project-overline">CARE, ON YOUR TIME</span>
+                          <h4>Make time<br />for yourself.</h4>
+                          <p>Choose your service and a time that works for you.</p>
+                          <span className="booking-duration"><i /> Booking takes less than 2 minutes</span>
                         </div>
-                        <div className="grid grid-cols-4 gap-1.5">
-                          {Array.from({ length: 12 }).map((_, day) => (
-                            <div key={day} className={`flex aspect-square items-center justify-center rounded-md text-[7px] ${day === 5 ? "bg-[#74543b] text-white" : "bg-[#f4efe9] text-[#715f50]"}`}>{day + 1}</div>
-                          ))}
+                        <div className="booking-calendar">
+                          <div className="calendar-title"><span><b>October 2026</b><small>Select a date</small></span><span>‹　›</span></div>
+                          <div className="calendar-days"><i>MO</i><i>TU</i><i>WE</i><i>TH</i><i>FR</i><i>SA</i><i>SU</i></div>
+                          <div className="calendar-dates">
+                            {Array.from({ length: 35 }).map((_, day) => {
+                              const date = day - 2;
+                              const isCurrentMonth = date > 0 && date <= 31;
+                              return <i key={day} className={`${!isCurrentMonth ? "muted" : ""} ${date === 14 ? "selected" : ""}`}>{isCurrentMonth ? date : date <= 0 ? 30 + date : date - 31}</i>;
+                            })}
+                          </div>
+                          <div className="calendar-time"><span>Available times</span><div><i>10:30</i><i>12:00</i><i className="selected">2:30</i></div></div>
                         </div>
                       </div>
                     </div>
