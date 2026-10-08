@@ -10,9 +10,8 @@ export const siteConfig = {
 export const navItems = [
   { label: "Home", href: "#home" },
   { label: "Services", href: "#services" },
-  { label: "Process", href: "#process" },
   { label: "Work", href: "#work" },
-  { label: "About", href: "#about" },
+  { label: "Process", href: "#process" },
   { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
 ];
@@ -84,40 +83,36 @@ export const services = [
       "Tailored digital work that does not fit neatly into a standard package.",
     detail: "Flexible problem-solving for the specific operational and digital needs of your business.",
   },
+  {
+    title: "Admin Dashboards",
+    description:
+      "Clear internal tools for managing content, customers, bookings, and operations.",
+    detail: "Purpose-built admin panels that make important business information and tasks easier to manage.",
+  },
+  {
+    title: "Analytics",
+    description:
+      "Useful reporting that helps teams understand activity and make informed decisions.",
+    detail: "Analytics and reporting views connected to the customer and operational data that matters.",
+  },
 ];
 
 export const processSteps = [
   {
-    title: "Discover",
-    description: "Understand your business, audience, goals, and the digital problems you need to solve.",
+    title: "Discover & plan",
+    description: "Align goals, audience, scope, content, features, and technology before work begins.",
   },
   {
-    title: "Plan",
-    description: "Map the structure, features, technology, content, and digital direction before build starts.",
+    title: "Design & build",
+    description: "Shape the visual system and useful flows, then develop the experience around real needs.",
   },
   {
-    title: "Design",
-    description: "Shape the visual system, interface flow, and user experience around real business needs.",
+    title: "Connect & launch",
+    description: "Integrate databases, bookings, authentication, and tools; prepare the product for real users.",
   },
   {
-    title: "Build",
-    description: "Develop the website, application, systems, and required functionality with a practical focus.",
-  },
-  {
-    title: "Integrate",
-    description: "Connect databases, forms, authentication, bookings, analytics, and the tools you rely on.",
-  },
-  {
-    title: "Launch",
-    description: "Deploy the final product in a way that’s ready for users and business operations.",
-  },
-  {
-    title: "Maintain",
-    description: "Keep systems working, up-to-date, secure, and improving over time.",
-  },
-  {
-    title: "Grow",
-    description: "Support future improvements, marketing, feature expansion, and continued digital growth.",
+    title: "Maintain & grow",
+    description: "Keep systems current and secure, and make practical improvements as the business evolves.",
   },
 ];
 
@@ -125,7 +120,7 @@ export const projects = [
   {
     title: "Café Atelier",
     category: "Brand website",
-    description: "A warm hospitality experience with a considered menu, reservations, and a clear route to visit.",
+    description: "A calm hospitality website with a menu and easy reservations.",
     url: "",
     accent: "from-[#dcb98a] via-[#f4e3d1] to-[#f7efe8]",
     preview: "hospitality",
@@ -133,7 +128,7 @@ export const projects = [
   {
     title: "Northline Commerce",
     category: "E-commerce",
-    description: "A clean storefront for selling lifestyle products with a conversion-focused browsing flow.",
+    description: "A considered storefront with clear product discovery and checkout.",
     url: "",
     accent: "from-[#b08a61] via-[#e8d2b7] to-[#f6efe9]",
     preview: "commerce",
@@ -141,20 +136,11 @@ export const projects = [
   {
     title: "Horizon Booking",
     category: "Booking platform",
-    description: "A streamlined appointment experience for a services business with clear availability and flows.",
+    description: "A simple booking experience with clear availability and appointments.",
     url: "",
     accent: "from-[#d3b291] via-[#efe0d1] to-[#f8f3ee]",
     preview: "booking",
   },
-];
-
-export const digitalJourney = [
-  { title: "Business-first", detail: "Start with the goals and realities behind your brief." },
-  { title: "Joined-up", detail: "Connect the experience customers see to the systems behind it." },
-  { title: "Purpose-built", detail: "Choose the right scope and functionality for the job." },
-  { title: "Clear process", detail: "Know what is happening, what comes next, and why." },
-  { title: "Lasting support", detail: "Get practical care and improvements after launch." },
-  { title: "Room to grow", detail: "Build a solid foundation that can evolve with your business." },
 ];
 
 export const faqItems = [
@@ -215,19 +201,12 @@ export const formServiceOptions = [
   "Custom web application",
   "Database",
   "Authentication",
+  "Hosting",
   "Marketing",
   "Redesign",
   "Maintenance",
+  "Admin dashboard",
+  "Analytics",
+  "Custom digital solution",
   "Other",
-];
-
-export const ecosystemNodes = [
-  { name: "Website", description: "Your public-facing digital presence and core sales touchpoint." },
-  { name: "E-commerce", description: "Storefronts, product journeys, and online transactions." },
-  { name: "Database", description: "Structured data that keeps your business systems connected." },
-  { name: "Authentication", description: "Secure user access for customers, members, or teams." },
-  { name: "Booking", description: "Appointments and service scheduling made simple." },
-  { name: "Marketing", description: "Campaigns, visibility, and digital growth opportunities." },
-  { name: "Applications", description: "Custom tools built around real operational workflows." },
-  { name: "Maintenance", description: "Stable performance, updates, and continuous care." },
 ];

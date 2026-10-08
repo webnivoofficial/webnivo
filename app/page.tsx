@@ -3,16 +3,12 @@
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import {
   ArrowRight,
-  BadgeCheck,
   BarChart3,
-  BriefcaseBusiness,
   Building2,
   CalendarCheck2,
   Camera,
   Check,
   ChevronDown,
-  ChevronRight,
-  Cloud,
   Database,
   ExternalLink,
   Mail,
@@ -23,16 +19,14 @@ import {
   ShoppingBag,
   Sparkles,
   Sun,
-  Wrench,
   X,
+  UsersRound,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { type FormEvent, useEffect, useState, useSyncExternalStore } from "react";
 
 import {
-  digitalJourney,
-  ecosystemNodes,
   faqItems,
   formServiceOptions,
   navItems,
@@ -48,20 +42,6 @@ const sectionReveal = {
   viewport: { once: true, amount: 0.2 },
   transition: { duration: 0.52, ease: [0.22, 1, 0.36, 1] as const },
 };
-
-const serviceIcons = [
-  Building2,
-  ShoppingBag,
-  Sparkles,
-  CalendarCheck2,
-  BriefcaseBusiness,
-  Database,
-  BadgeCheck,
-  Cloud,
-  Wrench,
-  BarChart3,
-  MonitorSmartphone,
-];
 
 const stepList = [
   { label: "Tell us about yourself", key: "about" },
@@ -279,9 +259,9 @@ function Navbar() {
 
 function Hero() {
   return (
-    <section id="home" className="section-shell relative overflow-hidden pt-16 sm:pt-20">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(173,123,78,0.18),transparent_35%),radial-gradient(circle_at_80%_20%,_rgba(201,170,143,0.18),transparent_25%)]" />
-      <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8">
+    <section id="home" className="section-shell hero-section relative overflow-hidden pt-16 sm:pt-20">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_75%_18%,_rgba(173,123,78,0.12),transparent_42%)]" />
+      <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[1.08fr_0.92fr] lg:gap-14 lg:px-8">
         <motion.div {...sectionReveal} className="relative z-10">
           <p className="section-kicker">WEB NIVO</p>
           <h1 className="mt-6 max-w-[12ch] text-[clamp(3.2rem,9vw,7rem)] font-semibold leading-[0.9] tracking-[-0.08em] text-[var(--text)]">
@@ -295,23 +275,14 @@ function Hero() {
               Start a Project
               <ArrowRight size={17} className="transition-transform duration-200 group-hover/cta:translate-x-1" />
             </a>
-            <a href="#services" className="secondary-button inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-medium text-[var(--text)] sm:text-base">
-              Explore What We Do
+            <a href="#work" className="secondary-button inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-medium text-[var(--text)] sm:text-base">
+              Explore Work
             </a>
           </div>
-          <div className="mt-8 flex flex-wrap items-center gap-5 text-sm text-[var(--muted)]">
-            <div className="flex items-center gap-2">
-              <span className="flex h-2.5 w-2.5 rounded-full bg-[var(--accent)]" />
-              Websites
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="flex h-2.5 w-2.5 rounded-full bg-[var(--accent)]" />
-              E-commerce
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="flex h-2.5 w-2.5 rounded-full bg-[var(--accent)]" />
-              Custom systems
-            </div>
+          <div className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)] sm:text-sm">
+            <span>Websites</span><span aria-hidden="true">·</span>
+            <span>Commerce</span><span aria-hidden="true">·</span>
+            <span>Custom systems</span>
           </div>
         </motion.div>
 
@@ -328,10 +299,8 @@ function Hero() {
               <circle cx="290" cy="290" r="126" stroke="var(--accent)" strokeOpacity=".12" />
               <circle cx="290" cy="290" r="178" stroke="var(--accent)" strokeOpacity=".08" strokeDasharray="3 8" />
             </svg>
-            <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute left-8 top-10 w-48 rounded-[1.5rem] border border-[var(--line)] bg-[var(--panel)] p-4 shadow-[var(--shadow-soft)]"
+            <div
+              className="hero-float-card absolute left-8 top-10 w-48 rounded-[1.5rem] border border-[var(--line)] bg-[var(--panel)] p-4 shadow-[var(--shadow-soft)]"
             >
               <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.22em] text-[var(--muted)]">
                 <span>Website</span>
@@ -345,12 +314,10 @@ function Hero() {
                   <div className="h-12 rounded-xl bg-[var(--surface-alt)]" />
                 </div>
               </div>
-            </motion.div>
+            </div>
 
-            <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 6.8, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute right-6 top-12 w-44 rounded-[1.5rem] border border-[var(--line)] bg-[var(--panel)] p-4 shadow-[var(--shadow-soft)]"
+            <div
+              className="hero-float-card absolute right-6 top-12 w-44 rounded-[1.5rem] border border-[var(--line)] bg-[var(--panel)] p-4 shadow-[var(--shadow-soft)]"
             >
               <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.22em] text-[var(--muted)]">
                 <span>Auth</span>
@@ -360,12 +327,10 @@ function Hero() {
                 <div className="h-8 rounded-xl bg-[var(--surface-alt)]" />
                 <div className="h-8 rounded-xl bg-[var(--surface-alt)]" />
               </div>
-            </motion.div>
+            </div>
 
-            <motion.div
-              animate={{ y: [0, -14, 0] }}
-              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute left-12 bottom-10 w-52 rounded-[1.5rem] border border-[var(--line)] bg-[var(--panel)] p-4 shadow-[var(--shadow-soft)]"
+            <div
+              className="hero-float-card absolute left-12 bottom-10 w-52 rounded-[1.5rem] border border-[var(--line)] bg-[var(--panel)] p-4 shadow-[var(--shadow-soft)]"
             >
               <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.22em] text-[var(--muted)]">
                 <span>Bookings</span>
@@ -376,12 +341,10 @@ function Hero() {
                 <div className="h-10 rounded-xl bg-[var(--surface-alt)]" />
                 <div className="h-10 rounded-xl bg-[var(--surface-alt)]" />
               </div>
-            </motion.div>
+            </div>
 
-            <motion.div
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 7.5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute bottom-8 right-10 w-40 rounded-[1.5rem] border border-[var(--line)] bg-[var(--panel)] p-4 shadow-[var(--shadow-soft)]"
+            <div
+              className="hero-float-card absolute bottom-8 right-10 w-40 rounded-[1.5rem] border border-[var(--line)] bg-[var(--panel)] p-4 shadow-[var(--shadow-soft)]"
             >
               <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.22em] text-[var(--muted)]">
                 <span>Data</span>
@@ -392,7 +355,7 @@ function Hero() {
                   <div key={idx} className="h-12 flex-1 rounded-t-xl bg-[var(--surface-alt)]" style={{ height: `${18 + idx * 12}px` }} />
                 ))}
               </div>
-            </motion.div>
+            </div>
 
             <div className="absolute left-1/2 top-1/2 h-44 w-44 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[var(--line)] bg-[var(--panel)] shadow-[var(--shadow-soft)] backdrop-blur-xl">
               <div className="flex h-full flex-col items-center justify-center text-center">
@@ -410,184 +373,144 @@ function Hero() {
   );
 }
 
-function MissionSection() {
-  return (
-    <section className="section-shell">
-      <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
-        <motion.div {...sectionReveal} className="rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-6 sm:p-8">
-          <p className="section-kicker">A connected foundation</p>
-          <h2 className="mt-5 text-3xl font-semibold tracking-[-0.06em] text-[var(--text)] sm:text-5xl">
-            Digital pieces work better together.
-          </h2>
-          <p className="mt-4 max-w-lg text-base leading-7 text-[var(--muted)] sm:text-lg">
-            From the first customer visit to the tools behind daily operations, each part should feel connected.
-          </p>
-        </motion.div>
-
-        <motion.div {...sectionReveal} transition={{ ...sectionReveal.transition, delay: 0.08 }} className="rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-5 sm:p-6">
-          <div className="space-y-4">
-            {[
-              "Website",
-              "Database",
-              "Authentication",
-              "Bookings",
-              "Marketing",
-              "Maintenance",
-              "Growth",
-            ].map((item, index) => (
-              <div key={item} className="flex items-center gap-4">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--line)] bg-[var(--surface-alt)] text-xs font-medium text-[var(--text)]">
-                  {index + 1}
-                </div>
-                <div className="flex-1 border-b border-dashed border-[var(--line)]" />
-                <div className="rounded-full border border-[var(--line)] bg-[var(--surface)] px-4 py-2 text-sm font-medium text-[var(--text)]">
-                  {item}
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-function WhySection() {
-  return (
-    <section className="section-shell">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          eyebrow="Why Web Nivo"
-          title="Thoughtful work, built around how you operate."
-          description="A considered mix of design, engineering, and practical business thinking—before, during, and after launch."
-        />
-
-        <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
-          {digitalJourney.map((item, idx) => (
-            <motion.div
-              key={item.title}
-              {...sectionReveal}
-              transition={{ ...sectionReveal.transition, delay: idx * 0.05 }}
-              className={`relative rounded-[1.5rem] border p-4 shadow-[var(--shadow-soft)] ${
-                idx > 3
-                  ? "border-[var(--accent)]/25 bg-[var(--surface-alt)]"
-                  : "border-[var(--line)] bg-[var(--panel)]"
-              }`}
-            >
-              <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-full border border-[var(--line)] bg-[var(--surface-alt)] text-xs font-semibold text-[var(--accent)]">
-                0{idx + 1}
-              </div>
-              <p className="text-base font-semibold text-[var(--text)]">{item.title}</p>
-              <p className="mt-2 text-sm leading-5 text-[var(--muted)]">{item.detail}</p>
-              {idx < digitalJourney.length - 1 && (
-                <ArrowRight aria-hidden="true" size={14} className="absolute -right-3 top-1/2 z-10 hidden -translate-y-1/2 text-[var(--accent)] xl:block" />
-              )}
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function BusinessFitSection() {
-  const businessTypes = [
+function ServicesSection() {
+  const featuredServices = [
     {
       icon: Building2,
-      title: "Restaurants",
-      detail: "Brand-led websites, digital menus, reservations, and ordering.",
+      title: "Websites that work",
+      description: "Brand-led business websites and focused landing pages.",
+      services: ["Business Websites", "Landing Pages"],
     },
     {
       icon: ShoppingBag,
-      title: "Retail",
-      detail: "Online stores, product catalogs, and connected commerce tools.",
+      title: "E-commerce",
+      description: "Product discovery, storefronts, and smooth checkout.",
+      services: ["E-commerce Websites"],
     },
     {
       icon: CalendarCheck2,
-      title: "Service businesses",
-      detail: "Booking flows, lead-generation websites, and customer accounts.",
+      title: "Bookings & customer flows",
+      description: "Reservations, scheduling, and customer accounts.",
+      services: ["Booking Websites"],
     },
     {
       icon: MonitorSmartphone,
-      title: "Growing businesses",
-      detail: "Custom applications, databases, and systems built to scale.",
+      title: "Custom applications",
+      description: "Applications, admin tools, and reporting shaped around your workflows.",
+      services: ["Custom Web Applications", "Admin Dashboards", "Analytics"],
     },
   ];
 
+  const foundations = services.filter(
+    (service) =>
+      !featuredServices.some((group) => group.services.includes(service.title)),
+  );
+
+  const systemStages = [
+    { label: "Website", icon: MonitorSmartphone },
+    { label: "Customers", icon: UsersRound },
+    { label: "Data", icon: Database },
+    { label: "Bookings & orders", icon: CalendarCheck2 },
+    { label: "Admin", icon: BarChart3 },
+  ];
+
   return (
-    <section className="section-shell !py-12 sm:!py-16">
+    <section id="services" className="section-shell capability-section">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+        <motion.div {...sectionReveal} className="capability-intro">
           <div>
-            <p className="section-kicker">Built for businesses like yours</p>
-            <h2 className="mt-4 max-w-lg text-[clamp(2.25rem,5vw,3.5rem)] font-semibold leading-[0.98] tracking-[-0.065em] text-[var(--text)]">
-              Whatever you do, there&apos;s a useful next step.
+            <p className="section-kicker">What Web Nivo builds</p>
+            <h2 className="mt-4 max-w-2xl text-[clamp(2.5rem,5.5vw,4.5rem)] font-semibold leading-[0.94] tracking-[-0.07em] text-[var(--text)]">
+              A better website is just the start.
             </h2>
           </div>
+          <p className="max-w-md text-base leading-7 text-[var(--muted)] sm:text-lg">
+            Customer-facing experiences, connected to the tools that keep your business moving.
+          </p>
+        </motion.div>
+
+        <div className="mt-10 grid gap-5 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8">
           <div className="grid gap-3 sm:grid-cols-2">
-            {businessTypes.map(({ icon: Icon, title, detail }, index) => (
+            {featuredServices.map(({ icon: Icon, title, description, services: serviceLabels }, index) => (
               <motion.article
                 key={title}
                 {...sectionReveal}
                 transition={{ ...sectionReveal.transition, delay: index * 0.04 }}
-                className="rounded-[1.35rem] border border-[var(--line)] bg-[var(--panel)] p-4 sm:p-5"
+                whileHover={{ y: -3 }}
+                className="service-card group flex min-h-40 flex-col justify-between rounded-[1.5rem] bg-[var(--panel)] p-5 sm:p-6"
               >
-                <div className="flex items-center gap-3">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--surface-alt)] text-[var(--accent)]">
-                    <Icon size={19} aria-hidden="true" />
-                  </span>
-                  <h3 className="text-base font-semibold tracking-[-0.03em] text-[var(--text)]">{title}</h3>
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--surface-alt)] text-[var(--accent)] transition-transform duration-200 group-hover:scale-105">
+                  <Icon size={20} aria-hidden="true" />
+                </span>
+                <div className="mt-7">
+                  <h3 className="text-lg font-semibold tracking-[-0.04em] text-[var(--text)]">{title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-[var(--muted)]">{description}</p>
+                  <div className="mt-3 flex flex-wrap gap-1.5">
+                    {serviceLabels.map((service) => (
+                      <span className="service-mini-tag" key={service}>{service}</span>
+                    ))}
+                  </div>
                 </div>
-                <p className="mt-3 text-sm leading-6 text-[var(--muted)]">{detail}</p>
               </motion.article>
             ))}
           </div>
+
+          <motion.div {...sectionReveal} transition={{ ...sectionReveal.transition, delay: 0.08 }} className="system-board">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <p className="section-kicker">The connected system</p>
+                <h3 className="mt-2 text-xl font-semibold tracking-[-0.045em] text-[var(--text)] sm:text-2xl">
+                  From first click to daily operations.
+                </h3>
+              </div>
+              <span className="hidden h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--surface-alt)] text-[var(--accent)] sm:flex">
+                <Sparkles size={18} aria-hidden="true" />
+              </span>
+            </div>
+
+            <ol className="system-flow mt-7" aria-label="How a digital experience connects">
+              {systemStages.map(({ label, icon: Icon }) => (
+                <li className="system-stage" key={label}>
+                  <span className="system-stage-icon">
+                    <Icon size={18} aria-hidden="true" />
+                  </span>
+                  <span className="system-stage-label">{label}</span>
+                </li>
+              ))}
+            </ol>
+
+            <div className="system-board-footer">
+              <span className="system-status-dot" aria-hidden="true" />
+              <span>Designed around the way your business works</span>
+            </div>
+          </motion.div>
         </div>
-      </div>
-    </section>
-  );
-}
 
-function ServicesSection() {
-  return (
-    <section id="services" className="section-shell">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          eyebrow="Services"
-          title="A complete digital capability built around your business."
-          description="Choose a focused service or combine the pieces your business needs."
-        />
-
-        <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {services.map((service, index) => {
-            const Icon = serviceIcons[index % serviceIcons.length];
-
-            return (
-              <motion.article
-                key={service.title}
-                {...sectionReveal}
-                transition={{ ...sectionReveal.transition, delay: index * 0.04 }}
-                whileHover={{ y: -4 }}
-                tabIndex={0}
-                className="service-card group rounded-[1.6rem] border border-[var(--line)] bg-[var(--panel)] p-5 shadow-[var(--shadow-soft)]"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div className="service-icon flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--surface-alt)] text-[var(--accent)] transition group-hover:scale-105 group-hover:text-[var(--text)]">
-                    <Icon size={22} />
+        <div className="capability-support mt-7 border-t border-[var(--line)] pt-5">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-sm font-medium text-[var(--text)]">
+              For restaurants, retail, service teams, and growing businesses.
+            </p>
+            <details className="capability-details">
+              <summary>
+                Explore the foundations
+                <ChevronDown size={15} aria-hidden="true" />
+              </summary>
+              <div className="capability-foundations">
+                {foundations.map(({ title, detail }) => (
+                  <div key={title}>
+                    <h4>{title}</h4>
+                    <p>{detail}</p>
                   </div>
-                  <div className="rounded-full border border-[var(--line)] bg-[var(--surface)] px-2.5 py-1 text-[10px] uppercase tracking-[0.2em] text-[var(--muted)]">
-                    {String(index + 1).padStart(2, "0")}
-                  </div>
-                </div>
-                <h3 className="mt-6 text-xl font-semibold tracking-[-0.05em] text-[var(--text)]">{service.title}</h3>
-                <p className="mt-3 text-base leading-7 text-[var(--muted)]">{service.description}</p>
-                <p className="mt-4 text-sm leading-6 text-[var(--muted)]">
-                  {service.detail}
-                </p>
-                <ChevronRight aria-hidden="true" size={17} className="service-arrow ml-auto mt-3 text-[var(--accent)]" />
-              </motion.article>
-            );
-          })}
+                ))}
+              </div>
+            </details>
+          </div>
+          <ul className="capability-pills" aria-label="Additional digital capabilities">
+            {foundations.map(({ title }) => (
+              <li key={title}>{title}</li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>
@@ -597,51 +520,41 @@ function ServicesSection() {
 function ProcessSection() {
   return (
     <section id="process" className="section-shell">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          eyebrow="How we work"
-          title="From first conversation to a dependable launch."
-          description="A clear sequence of decisions and delivery, with room for the right support after launch."
-        />
+      <div id="about" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <motion.div {...sectionReveal} className="process-intro">
+          <div className="process-identity">
+            <p className="section-kicker">A considered partnership</p>
+            <h2 className="mt-4 text-[clamp(2.5rem,5vw,4.2rem)] font-semibold leading-[0.94] tracking-[-0.07em] text-[var(--text)]">
+              Small team. Systems-level thinking.
+            </h2>
+            <p className="mt-5 max-w-lg text-base leading-7 text-[var(--muted)] sm:text-lg">
+              Design and engineering, grounded in how your business actually works.
+            </p>
+            <div className="mt-7 flex flex-wrap gap-2">
+              {["Business-first", "Connected by design", "Support beyond launch"].map((value) => (
+                <span className="identity-tag" key={value}>{value}</span>
+              ))}
+            </div>
+          </div>
 
-        <div aria-hidden="true" className="relative mx-auto mt-10 hidden max-w-6xl items-center justify-between px-[6.25%] xl:flex">
-          <div className="absolute left-[6.25%] right-[6.25%] top-1/2 h-px -translate-y-1/2 bg-[linear-gradient(90deg,var(--line),var(--accent),var(--accent),var(--line))]" />
-          {processSteps.map((step, index) => (
-            <span
-              key={step.title}
-              className={`relative z-10 flex h-8 w-8 items-center justify-center rounded-full border text-[10px] font-semibold ${
-                index >= 6
-                  ? "border-[var(--accent)] bg-[var(--accent)] text-white"
-                  : "border-[var(--line)] bg-[var(--bg)] text-[var(--accent)]"
-              }`}
-            >
-              {index + 1}
-            </span>
-          ))}
-        </div>
-        <div className="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {processSteps.map((step, index) => (
-            <motion.div
-              key={step.title}
-              {...sectionReveal}
-              transition={{ ...sectionReveal.transition, delay: index * 0.04 }}
-              className={`relative rounded-[1.5rem] border p-5 shadow-[var(--shadow-soft)] ${
-                index >= 6
-                  ? "border-[var(--accent)]/35 bg-[var(--surface-alt)]"
-                  : "border-[var(--line)] bg-[var(--panel)]"
-              }`}
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-xs uppercase tracking-[0.2em] text-[var(--muted)]">{String(index + 1).padStart(2, "0")}</span>
-                <span className="flex h-8 w-8 items-center justify-center rounded-full border border-[var(--line)] bg-[var(--surface-alt)] text-xs font-medium text-[var(--text)]">
-                  {index + 1}
-                </span>
-              </div>
-              <h3 className="mt-5 text-2xl font-semibold tracking-[-0.05em] text-[var(--text)]">{step.title}</h3>
-              <p className="mt-3 text-base leading-7 text-[var(--muted)]">{step.description}</p>
-            </motion.div>
-          ))}
-        </div>
+          <div className="process-overview">
+            <p className="section-kicker">From brief to better</p>
+            <h3 className="mt-3 text-2xl font-semibold tracking-[-0.05em] text-[var(--text)]">
+              A clear path, with you at every step.
+            </h3>
+            <ol className="mt-6 divide-y divide-[var(--line)]">
+              {processSteps.map((phase, index) => (
+                <li className="process-phase" key={phase.title}>
+                  <span className="process-phase-number">{String(index + 1).padStart(2, "0")}</span>
+                  <div>
+                    <h4>{phase.title}</h4>
+                    <p>{phase.description}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -651,24 +564,35 @@ function WorkSection() {
   return (
     <section id="work" className="section-shell">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          eyebrow="Work · Demo concepts"
-          title="Different businesses. Different digital needs."
-          description="Explore how a brand, a storefront, and a booking flow can each become a complete online experience."
-        />
+        <motion.div {...sectionReveal} className="work-intro">
+          <div>
+            <p className="section-kicker">Selected concepts</p>
+            <h2 className="mt-4 max-w-3xl text-[clamp(2.6rem,6vw,4.7rem)] font-semibold leading-[0.93] tracking-[-0.075em] text-[var(--text)]">
+              Your business, brought to life online.
+            </h2>
+          </div>
+          <p className="max-w-sm text-base leading-7 text-[var(--muted)] sm:text-lg">
+            Three directions. Each built around a different customer experience.
+          </p>
+        </motion.div>
 
-        <div className="mt-10 grid gap-5 lg:grid-cols-3">
+        <div className="mt-10 grid gap-5 lg:grid-cols-2 lg:gap-7">
           {projects.map((project, index) => (
             <motion.article
               key={project.title}
               {...sectionReveal}
               transition={{ ...sectionReveal.transition, delay: index * 0.05 }}
-              whileHover={{ y: -5 }}
-              className="group overflow-hidden rounded-[1.8rem] border border-[var(--line)] bg-[var(--panel)] shadow-[var(--shadow-soft)]"
+              whileHover={{ y: -3 }}
+              className={`project-card group overflow-hidden rounded-[1.8rem] border border-[var(--line)] bg-[var(--panel)] ${
+                index === 0 ? "lg:col-span-2" : ""
+              }`}
             >
-              <div className={`relative h-72 overflow-hidden bg-gradient-to-br ${project.accent} p-4 sm:h-80 sm:p-5`}>
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_10%,rgba(255,255,255,.7),transparent_35%)]" />
-                <div className="relative h-full overflow-hidden rounded-[1.25rem] border border-white/55 bg-[#fbf8f4] shadow-[0_18px_45px_rgba(54,39,28,0.18)] transition-transform duration-500 group-hover:scale-[1.025]">
+              <div className={`project-stage relative overflow-hidden bg-gradient-to-br ${project.accent} p-3 sm:p-5 ${
+                index === 0 ? "h-72 sm:h-[27rem]" : "h-64 sm:h-72"
+              }`}>
+                <div className={`project-preview relative h-full overflow-hidden rounded-[1.25rem] border border-white/55 bg-[#fbf8f4] transition-transform duration-300 group-hover:scale-[1.012] ${
+                  index === 0 ? "shadow-[0_14px_34px_rgba(54,39,28,0.12)]" : ""
+                }`}>
                   <div className="flex h-8 items-center gap-1.5 border-b border-[#e8dfd5] px-3">
                     <span className="h-1.5 w-1.5 rounded-full bg-[#bc9b7f]" />
                     <span className="h-1.5 w-1.5 rounded-full bg-[#d7c6b6]" />
@@ -724,31 +648,30 @@ function WorkSection() {
                     </div>
                   )}
                 </div>
-                <div className="absolute bottom-6 left-6 rounded-full border border-white/60 bg-white/75 px-3 py-1 text-[9px] uppercase tracking-[0.18em] text-[#4d3828] backdrop-blur-md sm:bottom-7 sm:left-7">
-                  Demo concept
-                </div>
               </div>
-              <div className="p-5">
-                <div className="flex items-center justify-between gap-3">
-                  <p className="text-xs uppercase tracking-[0.22em] text-[var(--muted)]">{project.category}</p>
-                  <span className="rounded-full border border-[var(--line)] px-2.5 py-1 text-[9px] uppercase tracking-[0.15em] text-[var(--muted)]">Concept</span>
+              <div className="flex flex-wrap items-center justify-between gap-3 px-5 pt-5 sm:px-7 sm:pt-6">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">{project.category}</p>
+                <span className="rounded-full bg-[var(--surface-alt)] px-3 py-1 text-[10px] font-medium uppercase tracking-[0.16em] text-[var(--accent-strong)]">Concept</span>
+              </div>
+              <div className="flex flex-col gap-3 px-5 pb-5 pt-2 sm:flex-row sm:items-end sm:justify-between sm:px-7 sm:pb-7">
+                <div>
+                  <h3 className="text-2xl font-semibold tracking-[-0.05em] text-[var(--text)] sm:text-3xl">{project.title}</h3>
+                  <p className="mt-2 max-w-xl text-sm leading-6 text-[var(--muted)] sm:text-base">{project.description}</p>
                 </div>
-                <h3 className="mt-3 text-2xl font-semibold tracking-[-0.05em] text-[var(--text)]">{project.title}</h3>
-                <p className="mt-3 text-base leading-7 text-[var(--muted)]">{project.description}</p>
                 {project.url ? (
                   <a
                     href={project.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-[var(--accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+                    className="project-link inline-flex shrink-0 items-center gap-2 text-sm font-medium text-[var(--accent)]"
                   >
                     View Project
-                    <ExternalLink size={15} />
+                    <ExternalLink size={15} aria-hidden="true" />
                   </a>
                 ) : (
-                  <a href="#contact" className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-[var(--accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]">
-                    Start a similar project
-                    <ArrowRight size={15} />
+                  <a href="#contact" className="project-link inline-flex shrink-0 items-center gap-2 text-sm font-medium text-[var(--accent)]">
+                    Discuss a similar build
+                    <ArrowRight size={15} aria-hidden="true" />
                   </a>
                 )}
               </div>
@@ -756,129 +679,6 @@ function WorkSection() {
           ))}
         </div>
 
-        <div className="mt-10 flex justify-center">
-          <a href="#contact" className="secondary-button inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-base font-medium text-[var(--text)]">
-            Have something different in mind?
-            <ChevronRight size={16} />
-          </a>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function AboutSection() {
-  const [activeNode, setActiveNode] = useState(0);
-
-  return (
-    <section id="about" className="section-shell">
-      <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8">
-        <motion.div {...sectionReveal} className="rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-6 sm:p-8">
-          <p className="section-kicker">About Web Nivo</p>
-          <h2 className="mt-5 text-[clamp(2.4rem,5vw,3.8rem)] font-semibold leading-[0.98] tracking-[-0.065em] text-[var(--text)]">
-            A small team with a systems-level view.
-          </h2>
-          <p className="mt-4 text-base leading-7 text-[var(--muted)] sm:text-lg">
-            Web Nivo brings design, engineering, and practical business thinking together to make technology feel clear, useful, and considered.
-          </p>
-          <div className="mt-6 space-y-4">
-            <div className="flex items-start gap-3">
-              <div className="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-[var(--surface-alt)] text-[var(--accent)]">
-                <Check size={14} />
-              </div>
-              <p className="text-base text-[var(--muted)]">We start with your business context, not a one-size-fits-all template.</p>
-            </div>
-            <div className="flex items-start gap-3">
-              <div className="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-[var(--surface-alt)] text-[var(--accent)]">
-                <Check size={14} />
-              </div>
-              <p className="text-base text-[var(--muted)]">Design and engineering stay connected to everyday operations.</p>
-            </div>
-            <div className="flex items-start gap-3">
-              <div className="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-[var(--surface-alt)] text-[var(--accent)]">
-                <Check size={14} />
-              </div>
-              <p className="text-base text-[var(--muted)]">Thoughtful support continues beyond the day your project launches.</p>
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div {...sectionReveal} transition={{ ...sectionReveal.transition, delay: 0.1 }} className="rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-4 sm:p-6">
-          <div className="hidden md:block">
-            <div className="relative h-[500px] w-full overflow-hidden rounded-[1.8rem] border border-[var(--line)] bg-[radial-gradient(circle_at_center,_rgba(180,130,92,0.22),transparent_45%),linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0))]">
-              <div className="absolute inset-0 opacity-50 [background-image:linear-gradient(rgba(184,153,129,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(184,153,129,0.12)_1px,transparent_1px)] [background-size:36px_36px]" />
-              <svg aria-hidden="true" viewBox="0 0 500 500" preserveAspectRatio="none" className="pointer-events-none absolute inset-0 h-full w-full">
-                <path d="M250 250 250 50M250 250 100 135M250 250 400 125M250 250 90 245M250 250 410 240M250 250 120 345M250 250 380 345M250 250 250 375" fill="none" stroke="var(--accent)" strokeOpacity=".22" strokeWidth="1.5" strokeDasharray="5 7" />
-                <circle cx="250" cy="250" r="118" fill="none" stroke="var(--accent)" strokeOpacity=".12" />
-              </svg>
-
-              {ecosystemNodes.map((node, index) => {
-                const positions = [
-                  { top: "7%", left: "48%" },
-                  { top: "27%", left: "20%" },
-                  { top: "25%", left: "80%" },
-                  { top: "49%", left: "18%" },
-                  { top: "48%", left: "82%" },
-                  { top: "69%", left: "24%" },
-                  { top: "70%", left: "76%" },
-                  { top: "75%", left: "50%" },
-                ];
-
-                const position = positions[index];
-
-                return (
-                  <motion.button
-                    key={node.name}
-                    type="button"
-                    onMouseEnter={() => setActiveNode(index)}
-                    onFocus={() => setActiveNode(index)}
-                    className="absolute z-[1] flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 rounded-full border border-[var(--line)] bg-[var(--panel)] px-3 py-2 text-xs font-medium uppercase tracking-[0.18em] text-[var(--text)] shadow-[var(--shadow-soft)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
-                    style={{ top: position.top, left: position.left }}
-                    onClick={() => setActiveNode(index)}
-                    aria-label={`${node.name}: ${node.description}`}
-                    whileHover={{ scale: 1.04 }}
-                  >
-                    {node.name}
-                  </motion.button>
-                );
-              })}
-
-              <div className="absolute left-1/2 top-1/2 z-[2] flex h-32 w-32 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--line)] bg-[var(--panel)] text-center shadow-[var(--shadow-soft)]">
-                <div>
-                  <div className="mx-auto h-9 w-9 rounded-full bg-[var(--surface-alt)] ring-4 ring-[var(--beige-ring)]" />
-                  <p className="mt-3 text-[10px] uppercase tracking-[0.28em] text-[var(--muted)]">Your</p>
-                  <p className="text-lg font-semibold tracking-[-0.05em] text-[var(--text)]">Business</p>
-                </div>
-              </div>
-
-              <div className="absolute bottom-4 left-4 max-w-[205px] rounded-2xl border border-[var(--line)] bg-[var(--panel)] px-3 py-2.5 text-left shadow-[var(--shadow-soft)] backdrop-blur-md">
-                <p className="text-[9px] uppercase tracking-[0.22em] text-[var(--muted)]">Connected focus</p>
-                <p className="mt-1.5 text-xs leading-5 text-[var(--text)] sm:text-sm">{ecosystemNodes[activeNode].description}</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="grid gap-3 md:hidden">
-            {ecosystemNodes.map((node, index) => (
-              <button
-                key={node.name}
-                type="button"
-                onClick={() => setActiveNode(index)}
-                className={`flex items-center justify-between rounded-2xl border px-3 py-2.5 text-left text-xs font-medium uppercase tracking-[0.18em] ${
-                  activeNode === index
-                    ? "border-[var(--accent)] bg-[var(--surface-alt)] text-[var(--text)]"
-                    : "border-[var(--line)] bg-[var(--surface)] text-[var(--muted)]"
-                }`}
-              >
-                <span>{node.name}</span>
-                <span className="h-2.5 w-2.5 rounded-full bg-[var(--accent)]" />
-              </button>
-            ))}
-            <div className="rounded-2xl border border-[var(--line)] bg-[var(--surface)] px-4 py-3 text-sm text-[var(--text)]">
-              {ecosystemNodes[activeNode].description}
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
@@ -1322,7 +1122,7 @@ function ContactSection() {
           </p>
 
           <a href="#project-inquiry" className="brand-button group/cta mt-7 inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-base font-semibold text-white">
-            Start Your Project
+            Start a Project
             <ArrowRight size={17} className="transition-transform duration-200 group-hover/cta:translate-x-1" />
           </a>
 
@@ -1369,7 +1169,7 @@ function WhatsAppButton() {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    const obstructingSections = ["services", "process", "work", "about", "faq", "contact"]
+    const obstructingSections = ["services", "process", "work", "faq", "contact"]
       .map((id) => document.getElementById(id))
       .filter((section): section is HTMLElement => section !== null);
     if (obstructingSections.length === 0) return;
@@ -1453,13 +1253,9 @@ export default function Home() {
       <Navbar />
       <main className="pt-[4.75rem] sm:pt-20">
         <Hero />
-        <MissionSection />
-        <WhySection />
-        <BusinessFitSection />
         <ServicesSection />
-        <ProcessSection />
         <WorkSection />
-        <AboutSection />
+        <ProcessSection />
         <FaqSection />
         <ContactSection />
       </main>
