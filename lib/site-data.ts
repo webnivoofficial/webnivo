@@ -36,10 +36,16 @@ export const services = [
     detail: "High-conversion page design for new offers, key messages, and audience targeting.",
   },
   {
-    title: "Booking Websites",
+    title: "Booking Systems",
     description:
       "Booking and scheduling experiences for service businesses and appointment-led operations.",
     detail: "Streamlined flow for enquiries, reservations, and time-slot management.",
+  },
+  {
+    title: "Website Redesigns",
+    description:
+      "Refined digital experiences designed to modernise positioning, improve clarity, and sharpen conversion.",
+    detail: "Improved content hierarchy, better UX, and a stronger digital story for businesses ready for a more effective online presence.",
   },
   {
     title: "Custom Web Applications",
