@@ -1,9 +1,16 @@
 import { ArrowRight, Mail, MessageCircle } from "lucide-react";
 import Link from "next/link";
+import type { Metadata } from "next";
 
 import { ProjectInquiryForm } from "@/components/contact-form";
 import { PageIntro, SiteShell } from "@/components/site-shell";
 import { siteConfig } from "@/lib/site-data";
+
+export const metadata: Metadata = {
+  title: "Contact",
+  description:
+    "Tell Web Nivo about your business, project goals, and the digital solution you need.",
+};
 
 export default function ContactPage() {
   return (

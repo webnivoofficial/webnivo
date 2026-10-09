@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowRight, ChevronDown, Search } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -10,6 +10,10 @@ import { faqItems } from "@/lib/site-data";
 
 export default function FaqPage() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [query, setQuery] = useState("");
+  const filteredFaqs = faqItems.filter((item) =>
+    `${item.question} ${item.answer}`.toLowerCase().includes(query.trim().toLowerCase()),
+  );
 
   return (
     <SiteShell>
@@ -21,8 +25,28 @@ export default function FaqPage() {
             description="Straight answers about the kind of work Web Nivo supports, what’s included, and how projects usually move from idea to launch."
           />
 
-          <div className="mt-12 space-y-3">
-            {faqItems.map((item, index) => {
+          <label className="mx-auto mt-10 flex max-w-2xl items-center gap-3 rounded-2xl border border-[var(--line)] bg-[var(--panel)] px-4 py-3 text-[var(--muted)] shadow-[var(--shadow-soft)]">
+            <Search size={18} aria-hidden="true" />
+            <input
+              type="search"
+              value={query}
+              onChange={(event) => {
+                setQuery(event.target.value);
+                setOpenIndex(null);
+              }}
+              placeholder="Search questions"
+              aria-label="Search frequently asked questions"
+              className="w-full bg-transparent text-sm text-[var(--text)] outline-none placeholder:text-[var(--muted)]"
+            />
+          </label>
+
+          <div className="mt-8 space-y-3">
+            {filteredFaqs.length === 0 && (
+              <p className="rounded-2xl border border-[var(--line)] bg-[var(--panel)] px-5 py-6 text-center text-sm text-[var(--muted)]">
+                No questions match that search. Try another term or contact Web Nivo.
+              </p>
+            )}
+            {filteredFaqs.map((item, index) => {
               const open = openIndex === index;
               return (
                 <motion.div key={item.question} className="overflow-hidden rounded-[1.5rem] border border-[var(--line)] bg-[var(--panel)] shadow-[var(--shadow-soft)]" initial={false}>

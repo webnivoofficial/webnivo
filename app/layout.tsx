@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
+
+import { PageTransition } from "@/components/page-transition";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -9,10 +11,10 @@ const geistSans = Geist({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://webnivoofficial.vercel.app"),
-  alternates: {
-    canonical: "/",
+  title: {
+    default: "Web Nivo — Digital Solutions for Modern Businesses",
+    template: "%s | Web Nivo",
   },
-  title: "Web Nivo — Digital Solutions for Modern Businesses",
   description:
     "Web Nivo helps businesses build stronger digital presences through websites, e-commerce, databases, custom systems, marketing, and long-term support.",
   openGraph: {
@@ -54,7 +56,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             `,
           }}
         />
-        {children}
+        <PageTransition>{children}</PageTransition>
       </body>
     </html>
   );

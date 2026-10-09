@@ -7,95 +7,100 @@ export const siteConfig = {
   whatsappLink: "https://wa.me/923012542026",
 };
 
-export const navItems = [
-  { label: "Home", href: "#home" },
-  { label: "Services", href: "#services" },
-  { label: "Work", href: "#work" },
-  { label: "Process", href: "#process" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Contact", href: "#contact" },
-];
-
 export const services = [
   {
+    slug: "business-websites",
     title: "Business Websites",
     description:
       "Professional online presences shaped around your brand, goals, and customer journey.",
     detail: "Brand-led, conversion-friendly websites built to make an impression and generate enquiries.",
   },
   {
+    slug: "ecommerce",
     title: "E-commerce Websites",
     description:
       "Online stores designed to present products clearly and help customers buy with confidence.",
     detail: "Product experiences, checkout flows, and storefront systems that support sales.",
   },
   {
+    slug: "landing-pages",
     title: "Landing Pages",
     description:
       "Focused pages for launches, campaigns, offers, or service promotions.",
     detail: "High-conversion page design for new offers, key messages, and audience targeting.",
   },
   {
+    slug: "booking-systems",
     title: "Booking Systems",
     description:
       "Booking and scheduling experiences for service businesses and appointment-led operations.",
     detail: "Streamlined flow for enquiries, reservations, and time-slot management.",
   },
   {
+    slug: "website-redesign",
     title: "Website Redesigns",
     description:
       "Refined digital experiences designed to modernise positioning, improve clarity, and sharpen conversion.",
     detail: "Improved content hierarchy, better UX, and a stronger digital story for businesses ready for a more effective online presence.",
   },
   {
+    slug: "custom-web-applications",
     title: "Custom Web Applications",
     description:
       "Purpose-built digital tools designed around real operational and business needs.",
     detail: "Custom dashboards, internal systems, automations, and product experiences.",
   },
   {
+    slug: "databases",
     title: "Databases",
     description:
       "Structured data systems that keep your website and applications organised and reliable.",
     detail: "Well-designed storage, data models, and reporting structure for future growth.",
   },
   {
+    slug: "authentication",
     title: "Authentication",
     description:
       "Secure account and login experiences for customers, staff, or members.",
     detail: "Protected user flows, access control, and sign-in experiences that fit your product.",
   },
   {
+    slug: "hosting",
     title: "Hosting",
     description:
       "Deployment and hosting arrangements that keep your digital presence stable and accessible.",
     detail: "Modern hosting support, performance tuning, and deployment workflows where needed.",
   },
   {
+    slug: "maintenance",
     title: "Maintenance",
     description:
       "Ongoing updates, fixes, technical support, and digital upkeep after launch.",
     detail: "Reliable maintenance for continued performance, security, and smooth operations.",
   },
   {
+    slug: "marketing",
     title: "Marketing",
     description:
       "Support for online visibility, campaign pages, content direction, and growth opportunities.",
     detail: "Digital marketing support aligned with the systems and experiences you’re building.",
   },
   {
+    slug: "custom-digital-solutions",
     title: "Custom Digital Solutions",
     description:
       "Tailored digital work that does not fit neatly into a standard package.",
     detail: "Flexible problem-solving for the specific operational and digital needs of your business.",
   },
   {
+    slug: "admin-dashboards",
     title: "Admin Dashboards",
     description:
       "Clear internal tools for managing content, customers, bookings, and operations.",
     detail: "Purpose-built admin panels that make important business information and tasks easier to manage.",
   },
   {
+    slug: "analytics",
     title: "Analytics",
     description:
       "Useful reporting that helps teams understand activity and make informed decisions.",

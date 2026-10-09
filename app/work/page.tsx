@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, ExternalLink } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 import { PageIntro, SiteShell } from "@/components/site-shell";
@@ -130,8 +130,8 @@ export default function WorkPage() {
                     <div className="flex items-center justify-between gap-4 border-t border-[var(--line)] pt-4">
                       <span className="rounded-full bg-[var(--surface-alt)] px-3 py-1 text-[10px] font-medium uppercase tracking-[0.15em] text-[var(--accent-strong)]">Concept</span>
                       <Link href="/contact" className="inline-flex items-center gap-2 text-sm font-medium text-[var(--accent)]">
-                        View concept
-                        <ExternalLink size={14} />
+                        Discuss a similar build
+                        <ArrowRight size={14} />
                       </Link>
                     </div>
                   </div>

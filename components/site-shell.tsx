@@ -5,11 +5,11 @@ import { ArrowRight, ChevronDown, Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useSyncExternalStore, useState } from "react";
+import { useEffect, useRef, useSyncExternalStore, useState } from "react";
 
 import { services, siteConfig } from "@/lib/site-data";
 
-const serviceLinks = services.map((service) => service.title);
+const serviceLinks = services.slice(0, 6);
 
 const primaryLinks = [
   { label: "Home", href: "/" },
@@ -68,11 +68,17 @@ function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const mobileNavigationRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = menuOpen ? "hidden" : "";
+    if (menuOpen) {
+      mobileNavigationRef.current?.querySelector<HTMLElement>("a[href]")?.focus();
+    }
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousOverflow;
     };
   }, [menuOpen]);
 
@@ -118,20 +124,61 @@ function Navbar() {
     return pathname === href || pathname.startsWith(`${href}/`);
   };
 
-  const closeMenu = () => setMenuOpen(false);
+  const closeMenu = () => {
+    setMenuOpen(false);
+    if (menuOpen) menuButtonRef.current?.focus();
+  };
 
   return (
-    <header
-      className={`site-header fixed inset-x-0 top-0 z-50 pt-3 ${isHidden ? "site-header-hidden" : ""}`}
-      onFocusCapture={() => setIsHidden(false)}
-    >
+    <>
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.button
+            type="button"
+            tabIndex={-1}
+            aria-label="Close navigation menu"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeMenu}
+            className="fixed inset-0 z-40 bg-black/10 backdrop-blur-[2px] lg:hidden"
+          />
+        )}
+      </AnimatePresence>
+      <header
+        className={`site-header fixed inset-x-0 top-0 z-50 pt-3 ${isHidden ? "site-header-hidden" : ""}`}
+        onFocusCapture={() => setIsHidden(false)}
+        onKeyDown={(event) => {
+          if (event.key === "Escape") {
+            setServicesOpen(false);
+            closeMenu();
+          }
+          if (event.key === "Tab" && menuOpen && mobileNavigationRef.current) {
+            const focusableElements = Array.from(
+              mobileNavigationRef.current.querySelectorAll<HTMLElement>(
+                'a[href], button:not([disabled]), summary',
+              ),
+            ).filter((element) => element.getClientRects().length > 0);
+            const first = focusableElements[0];
+            const last = focusableElements[focusableElements.length - 1];
+
+            if (event.shiftKey && document.activeElement === first) {
+              event.preventDefault();
+              last?.focus();
+            } else if (!event.shiftKey && document.activeElement === last) {
+              event.preventDefault();
+              first?.focus();
+            }
+          }
+        }}
+      >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <nav className="site-nav flex items-center justify-between rounded-full px-3 py-2 sm:px-4">
           <Link href="/" className="flex items-center gap-3" aria-label="Web Nivo home">
             <Image src="/web-nivo-logo.png" alt="Web Nivo logo" width={120} height={44} priority className="h-8 w-auto sm:h-10" />
           </Link>
 
-          <div className="hidden items-center gap-7 md:flex">
+          <div className="hidden items-center gap-3 lg:flex xl:gap-6">
             {primaryLinks.map((item) => (
               <div key={item.href} className="relative">
                 {item.label === "Services" ? (
@@ -141,9 +188,15 @@ function Navbar() {
                     onMouseLeave={() => setServicesOpen(false)}
                   >
                     <button
+                      ref={menuButtonRef}
                       type="button"
                       className={`nav-link flex items-center gap-1 ${isPageMatch(item.href) ? "text-[var(--text)]" : ""}`}
                       aria-expanded={servicesOpen}
+                      aria-haspopup="menu"
+                      aria-controls="services-menu"
+                      aria-current={isPageMatch(item.href) ? "page" : undefined}
+                      onClick={() => setServicesOpen(true)}
+                      onFocus={() => setServicesOpen(true)}
                     >
                       {item.label}
                       <ChevronDown size={14} />
@@ -151,25 +204,32 @@ function Navbar() {
                     <AnimatePresence>
                       {servicesOpen && (
                         <motion.div
+                          id="services-menu"
+                          role="menu"
                           initial={{ opacity: 0, y: 8 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: 8 }}
                           transition={{ duration: 0.18 }}
                           className="absolute left-1/2 top-full mt-3 w-64 -translate-x-1/2 rounded-[1.25rem] border border-[var(--line)] bg-[var(--bg-soft)] p-2 shadow-[var(--shadow-soft)] backdrop-blur-xl"
                         >
-                          {serviceLinks.map((label) => {
-                            const route = `/services/${label
-                              .toLowerCase()
-                              .replace(/[^a-z0-9]+/g, "-")
-                              .replace(/(^-|-$)/g, "")}`;
-
+                          <Link
+                            href="/services"
+                            role="menuitem"
+                            className="block rounded-xl px-3 py-2 text-sm font-medium text-[var(--text)] transition hover:bg-[var(--surface-alt)]"
+                            onClick={() => setServicesOpen(false)}
+                          >
+                            All services
+                          </Link>
+                          {serviceLinks.map((service) => {
                             return (
                               <Link
-                                key={label}
-                                href={route}
+                                key={service.slug}
+                                href={`/services/${service.slug}`}
+                                role="menuitem"
                                 className="block rounded-xl px-3 py-2 text-sm text-[var(--muted)] transition hover:bg-[var(--surface-alt)] hover:text-[var(--text)]"
+                                onClick={() => setServicesOpen(false)}
                               >
-                                {label}
+                                {service.title}
                               </Link>
                             );
                           })}
@@ -178,7 +238,7 @@ function Navbar() {
                     </AnimatePresence>
                   </div>
                 ) : (
-                  <Link href={item.href} className={`nav-link ${isPageMatch(item.href) ? "text-[var(--text)]" : ""}`}>
+                  <Link href={item.href} aria-current={isPageMatch(item.href) ? "page" : undefined} className={`nav-link ${isPageMatch(item.href) ? "text-[var(--text)]" : ""}`}>
                     {item.label}
                   </Link>
                 )}
@@ -186,7 +246,7 @@ function Navbar() {
             ))}
           </div>
 
-          <div className="hidden items-center gap-3 md:flex">
+          <div className="hidden items-center gap-2 lg:flex xl:gap-3">
             <ThemeToggle />
             <Link href="/contact" className="brand-button inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium text-white">
               Start a Project
@@ -194,7 +254,7 @@ function Navbar() {
             </Link>
           </div>
 
-          <div className="flex items-center gap-2 md:hidden">
+          <div className="flex items-center gap-2 lg:hidden">
             <ThemeToggle />
             <button
               type="button"
@@ -216,17 +276,19 @@ function Navbar() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
+            ref={mobileNavigationRef}
             id="mobile-navigation"
-            role="region"
+            role="dialog"
             aria-label="Mobile navigation"
+            aria-modal="true"
             initial={{ opacity: 0, y: -16 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.2 }}
-            className="mx-4 mt-3 rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-4 shadow-[var(--shadow-soft)] backdrop-blur-xl md:hidden"
+            className="mx-4 mt-3 max-h-[calc(100svh-6rem)] overflow-y-auto rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-4 shadow-[var(--shadow-soft)] backdrop-blur-xl lg:hidden"
           >
             <div className="flex flex-col gap-1">
-              {primaryLinks.map((item) => (
+              {primaryLinks.filter((item) => item.label !== "Services").map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
@@ -236,6 +298,27 @@ function Navbar() {
                   {item.label}
                 </Link>
               ))}
+              <details className="mobile-services-list rounded-2xl">
+                <summary className="flex cursor-pointer list-none items-center justify-between rounded-2xl px-4 py-3 text-base font-medium text-[var(--text)] hover:bg-[var(--surface-alt)]">
+                  Services
+                  <ChevronDown size={16} aria-hidden="true" />
+                </summary>
+                <div className="grid gap-1 pl-3">
+                  <Link href="/services" onClick={closeMenu} className="rounded-xl px-4 py-2 text-sm font-medium text-[var(--accent)]">
+                    All services
+                  </Link>
+                  {serviceLinks.map((service) => (
+                    <Link
+                      key={service.slug}
+                      href={`/services/${service.slug}`}
+                      className="rounded-xl px-4 py-2 text-sm text-[var(--muted)] transition hover:bg-[var(--surface-alt)] hover:text-[var(--text)]"
+                      onClick={closeMenu}
+                    >
+                      {service.title}
+                    </Link>
+                  ))}
+                </div>
+              </details>
               <Link
                 href="/contact"
                 onClick={closeMenu}
@@ -248,7 +331,8 @@ function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+      </header>
+    </>
   );
 }
 
@@ -305,16 +389,13 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">Services</p>
             <ul className="mt-4 space-y-3 text-sm text-[var(--text)]">
-              {serviceLinks.map((label) => (
-                <li key={label}>
+              {services.map((service) => (
+                <li key={service.slug}>
                   <Link
-                    href={`/services/${label
-                      .toLowerCase()
-                      .replace(/[^a-z0-9]+/g, "-")
-                      .replace(/(^-|-$)/g, "")}`}
+                    href={`/services/${service.slug}`}
                     className="transition hover:text-[var(--accent)]"
                   >
-                    {label}
+                    {service.title}
                   </Link>
                 </li>
               ))}

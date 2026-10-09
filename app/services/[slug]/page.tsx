@@ -1,34 +1,47 @@
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import type { Metadata } from "next";
 
+import { ServicePreview } from "@/components/service-preview";
 import { PageIntro, SiteShell } from "@/components/site-shell";
 import { services } from "@/lib/site-data";
 
-function slugify(value: string) {
-  return value
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-}
-
 const serviceHighlights: Record<string, string[]> = {
   "business-websites": ["Brand positioning", "Clear customer journey", "Lead generation", "A polished, reliable online presence"],
-  "e-commerce-websites": ["Product-first layouts", "Trust-building design", "Checkout flow thinking", "Conversion-focused storefronts"],
+  ecommerce: ["Product-first layouts", "Trust-building design", "Checkout flow thinking", "Conversion-focused storefronts"],
   "landing-pages": ["Campaign-specific messaging", "Clear calls to action", "Fast launch times", "Optimised for conversion"],
   "booking-systems": ["Easy appointment flows", "Availability management", "Customer-first UX", "Operational efficiency"],
-  "booking-websites": ["Easy appointment flows", "Availability management", "Customer-first UX", "Operational efficiency"],
-  "website-redesigns": ["Fresh positioning", "Improved UX", "Better content hierarchy", "Structured next-step growth"],
+  "website-redesign": ["Fresh positioning", "Improved UX", "Better content hierarchy", "Structured next-step growth"],
   "custom-web-applications": ["Workflow mapping", "Internal tools", "Operational clarity", "Scalable digital systems"],
 };
 
+const serviceSlugAliases: Record<string, string> = {
+  "e-commerce-websites": "ecommerce",
+  "website-redesigns": "website-redesign",
+};
+
 export function generateStaticParams() {
-  return services.map((service) => ({ slug: slugify(service.title) }));
+  return [
+    ...services.map((service) => ({ slug: service.slug })),
+    ...Object.keys(serviceSlugAliases).map((slug) => ({ slug })),
+  ];
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const service = services.find((item) => item.slug === slug);
+
+  return service
+    ? { title: service.title, description: service.detail }
+    : { title: "Service not found" };
 }
 
 export default async function ServiceDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const service = services.find((item) => slugify(item.title) === slug);
+  const canonicalSlug = serviceSlugAliases[slug] ?? slug;
+  if (canonicalSlug !== slug) redirect(`/services/${canonicalSlug}`);
+  const service = services.find((item) => item.slug === canonicalSlug);
 
   if (!service) {
     notFound();
@@ -63,6 +76,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
               <p className="mt-5 max-w-2xl text-base leading-7 text-[var(--muted)] sm:text-lg">{service.detail}</p>
             </div>
             <div className="rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-6 shadow-[var(--shadow-soft)]">
+              <ServicePreview slug={service.slug} />
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">Best for</p>
               <div className="mt-4 space-y-3">
                 {highlights.map((item) => (
@@ -124,7 +138,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
             />
             <div className="mt-8 grid gap-5 md:grid-cols-3">
               {related.map((item) => (
-                <Link key={item.title} href={`/services/${slugify(item.title)}`} className="service-card rounded-[1.5rem] p-5">
+                <Link key={item.title} href={`/services/${item.slug}`} className="service-card rounded-[1.5rem] p-5">
                   <p className="text-sm font-medium text-[var(--muted)]">{item.title}</p>
                   <p className="mt-3 text-sm leading-6 text-[var(--muted)]">{item.description}</p>
                   <span className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-[var(--accent)]">

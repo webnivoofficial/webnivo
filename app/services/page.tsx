@@ -1,18 +1,29 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles } from "lucide-react";
+import {
+  ArrowRight,
+  BarChart3,
+  CalendarDays,
+  Layers3,
+  MonitorSmartphone,
+  ShoppingBag,
+  Sparkles,
+} from "lucide-react";
 import Link from "next/link";
 
+import { ServicePreview } from "@/components/service-preview";
 import { PageIntro, SiteShell } from "@/components/site-shell";
 import { services } from "@/lib/site-data";
 
-function slugify(value: string) {
-  return value
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-}
+const serviceIcons = [
+  MonitorSmartphone,
+  ShoppingBag,
+  Sparkles,
+  CalendarDays,
+  Layers3,
+  BarChart3,
+];
 
 export default function ServicesPage() {
   return (
@@ -29,31 +40,32 @@ export default function ServicesPage() {
             {services.map((service, index) => (
               <motion.article
                 key={service.title}
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.42, delay: index * 0.04 }}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.38, delay: (index % 3) * 0.04 }}
                 whileHover={{ y: -4 }}
-                className="service-card group flex h-full flex-col justify-between rounded-[1.75rem] p-6"
+                className="service-card group flex h-full flex-col justify-between overflow-hidden rounded-[1.75rem] bg-[var(--panel)]"
               >
-                <div>
-                  <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--surface-alt)] text-[var(--accent)]">
-                    <Sparkles size={18} />
+                <Link href={`/services/${service.slug}`} className="flex h-full flex-col justify-between p-5 sm:p-6">
+                  <div>
+                    <ServicePreview slug={service.slug} />
+                    <div className="mt-5 flex items-center justify-between gap-4">
+                      <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--surface-alt)] text-[var(--accent)]">
+                        {(() => {
+                          const Icon = serviceIcons[index] ?? Sparkles;
+                          return <Icon size={18} aria-hidden="true" />;
+                        })()}
+                      </span>
+                      <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">{String(index + 1).padStart(2, "0")}</span>
+                    </div>
+                    <h2 className="mt-4 text-2xl font-semibold tracking-[-0.05em] text-[var(--text)]">{service.title}</h2>
+                    <p className="mt-3 text-sm leading-6 text-[var(--muted)]">{service.description}</p>
                   </div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">{index + 1}</p>
-                  <h2 className="mt-3 text-2xl font-semibold tracking-[-0.05em] text-[var(--text)]">{service.title}</h2>
-                  <p className="mt-3 text-sm leading-6 text-[var(--muted)]">{service.description}</p>
-                </div>
-
-                <div className="mt-6 flex items-center justify-between gap-3 border-t border-[var(--line)] pt-4">
-                  <span className="text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">Strategy</span>
-                  <Link
-                    href={`/services/${slugify(service.title)}`}
-                    className="inline-flex items-center gap-2 text-sm font-medium text-[var(--accent)]"
-                  >
-                    Learn more
-                    <ArrowRight size={15} />
-                  </Link>
-                </div>
+                  <span className="mt-6 flex items-center justify-between gap-3 border-t border-[var(--line)] pt-4 text-sm font-medium text-[var(--accent)]">
+                    Explore service <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
+                  </span>
+                </Link>
               </motion.article>
             ))}
           </div>

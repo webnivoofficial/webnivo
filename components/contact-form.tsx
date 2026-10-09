@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { useState } from "react";
 
-import { formServiceOptions } from "@/lib/site-data";
+import { formServiceOptions, siteConfig } from "@/lib/site-data";
 
 const stepList = [
   { label: "Tell us about yourself", key: "about" },
@@ -46,9 +46,12 @@ export function ProjectInquiryForm() {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState<string[]>([]);
+  const [deliveryUrl, setDeliveryUrl] = useState("");
 
   const updateField = <K extends keyof FormData>(key: K, value: FormData[K]) => {
     setFormData((current) => ({ ...current, [key]: value }));
+    setErrors([]);
   };
 
   const toggleService = (option: string) => {
@@ -61,26 +64,92 @@ export function ProjectInquiryForm() {
           : [...current.selectedServices, option],
       };
     });
+    setErrors([]);
   };
 
-  const nextStep = () => setCurrentStep((step) => Math.min(step + 1, stepList.length - 1));
-  const prevStep = () => setCurrentStep((step) => Math.max(step - 1, 0));
+  const validateStep = () => {
+    const messages: string[] = [];
+    if (currentStep === 0) {
+      if (!formData.name.trim()) messages.push("Enter your name.");
+      if (!formData.company.trim()) messages.push("Enter your business or company name.");
+    }
+    if (currentStep === 1) {
+      if (!formData.businessType.trim()) messages.push("Tell us your business type.");
+      if (!/^\S+@\S+\.\S+$/.test(formData.email.trim())) messages.push("Enter a valid email address.");
+      if (formData.currentWebsite && !/^https?:\/\/\S+/i.test(formData.currentWebsite)) {
+        messages.push("Enter a valid website URL, including https://.");
+      }
+    }
+    if (currentStep === 2) {
+      if (formData.selectedServices.length === 0) messages.push("Choose at least one service.");
+      if (!formData.businessDescription.trim()) messages.push("Tell us a little about your business.");
+    }
+    if (currentStep === 3) {
+      if (!formData.detail.trim()) messages.push("Tell us what you would like to achieve.");
+      if (formData.social && !/^https?:\/\/\S+/i.test(formData.social)) {
+        messages.push("Enter a valid social profile URL, including https://.");
+      }
+    }
+    if (currentStep === 4 && formData.preferredContact === "WhatsApp" && !formData.whatsapp.trim()) {
+      messages.push("Add a WhatsApp number or select Email.");
+    }
+
+    setErrors(messages);
+    return messages.length === 0;
+  };
+
+  const nextStep = () => {
+    if (validateStep()) setCurrentStep((step) => Math.min(step + 1, stepList.length - 1));
+  };
+  const prevStep = () => {
+    setErrors([]);
+    setCurrentStep((step) => Math.max(step - 1, 0));
+  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!validateStep()) return;
+    const inquiry = [
+      `Project inquiry from ${formData.name}`,
+      `Business: ${formData.company}`,
+      `Business type: ${formData.businessType}`,
+      `Email: ${formData.email}`,
+      `WhatsApp: ${formData.whatsapp || "Not provided"}`,
+      `Current website: ${formData.currentWebsite || "Not provided"}`,
+      `Services: ${formData.selectedServices.join(", ")}`,
+      `Business overview: ${formData.businessDescription}`,
+      `Project goals: ${formData.detail}`,
+      `Social profile: ${formData.social || "Not provided"}`,
+    ].join("\n");
+
+    const destination = formData.preferredContact === "WhatsApp"
+      ? `${siteConfig.whatsappLink}?text=${encodeURIComponent(inquiry)}`
+      : `mailto:${siteConfig.email}?subject=${encodeURIComponent(`Project inquiry — ${formData.company}`)}&body=${encodeURIComponent(inquiry)}`;
+    setDeliveryUrl(destination);
     setSubmitted(true);
   };
 
   if (submitted) {
     return (
-      <div className="rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-8 shadow-[var(--shadow-soft)]">
+      <div role="status" className="rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-8 shadow-[var(--shadow-soft)]">
         <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--surface-alt)] text-[var(--accent)]">
           <Check size={24} />
         </div>
-        <h3 className="mt-5 text-3xl font-semibold tracking-[-0.05em] text-[var(--text)]">Thanks for getting in touch.</h3>
+        <h3 className="mt-5 text-3xl font-semibold tracking-[-0.05em] text-[var(--text)]">Your inquiry is ready.</h3>
         <p className="mt-3 max-w-md text-base leading-7 text-[var(--muted)]">
-          Your inquiry has been captured. Web Nivo will review your project details and respond with a practical next step.
+          {formData.preferredContact === "WhatsApp"
+            ? "Open WhatsApp with your project details filled in, then send the message to complete your inquiry."
+            : "Open your email app with the project details filled in, then send the email to complete your inquiry."}
         </p>
+        <a
+          href={deliveryUrl}
+          target={formData.preferredContact === "WhatsApp" ? "_blank" : undefined}
+          rel={formData.preferredContact === "WhatsApp" ? "noopener noreferrer" : undefined}
+          className="brand-button mt-6 inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium"
+        >
+          {formData.preferredContact === "WhatsApp" ? "Continue to WhatsApp" : "Open email draft"}
+          <ArrowRight size={16} />
+        </a>
       </div>
     );
   }
@@ -114,6 +183,12 @@ export function ProjectInquiryForm() {
           transition={{ duration: 0.3, ease: "easeOut" }}
         />
       </div>
+
+      {errors.length > 0 && (
+        <ul role="alert" className="mb-5 space-y-1 rounded-2xl border border-[#b75d52]/25 bg-[#b75d52]/[0.06] px-4 py-3 text-sm text-[#a84f46]">
+          {errors.map((message) => <li key={message}>{message}</li>)}
+        </ul>
+      )}
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <AnimatePresence mode="wait">
@@ -159,13 +234,14 @@ export function ProjectInquiryForm() {
               <div className="space-y-4">
                 <div>
                   <label className="field-label">What do you need?</label>
-                  <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                  <div className="mt-3 grid gap-2 sm:grid-cols-2" role="group" aria-label="Choose project services">
                     {formServiceOptions.map((option) => {
                       const checked = formData.selectedServices.includes(option);
                       return (
                         <button
                           key={option}
                           type="button"
+                          aria-pressed={checked}
                           onClick={() => toggleService(option)}
                           className={`flex items-center justify-between rounded-2xl border px-4 py-3 text-left text-sm font-medium transition ${
                             checked
@@ -205,7 +281,7 @@ export function ProjectInquiryForm() {
               <div className="grid gap-4 md:grid-cols-2">
                 <div>
                   <label className="field-label" htmlFor="whatsapp">WhatsApp number</label>
-                  <input id="whatsapp" className="field-input" type="tel" value={formData.whatsapp} onChange={(event) => updateField("whatsapp", event.target.value)} placeholder="0301 2542026" required />
+                  <input id="whatsapp" className="field-input" type="tel" value={formData.whatsapp} onChange={(event) => updateField("whatsapp", event.target.value)} placeholder="0301 2542026" />
                 </div>
                 <div>
                   <label className="field-label">Preferred contact method</label>
@@ -214,6 +290,7 @@ export function ProjectInquiryForm() {
                       <button
                         key={option}
                         type="button"
+                        aria-pressed={formData.preferredContact === option}
                         onClick={() => updateField("preferredContact", option)}
                         className={`flex-1 rounded-2xl border px-4 py-3 text-sm font-medium transition ${
                           formData.preferredContact === option
