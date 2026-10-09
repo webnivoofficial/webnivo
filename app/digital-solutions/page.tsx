@@ -79,7 +79,7 @@ export default function DigitalSolutionsPage() {
           </div>
 
           <div className="mt-20 grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-            <div className="rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-6 shadow-[var(--shadow-soft)]">
+            <div className="glass-panel rounded-[2rem] border border-[var(--line)] p-6">
               <p className="section-kicker">Why it matters</p>
               <h3 className="mt-4 text-3xl font-semibold tracking-[-0.05em] text-[var(--text)]">A business website should work like a real business asset.</h3>
               <p className="mt-4 text-base leading-7 text-[var(--muted)]">
@@ -94,7 +94,7 @@ export default function DigitalSolutionsPage() {
                 { icon: <Cloud size={18} />, title: "Reliable hosting", body: "Deployment and infrastructure can be tuned for speed, stability, and simpler upkeep." },
                 { icon: <ShieldCheck size={18} />, title: "Ongoing support", body: "New features, fixes, and improvements can keep the system healthy as the business grows." },
               ].map((item) => (
-                <div key={item.title} className="rounded-[1.5rem] border border-[var(--line)] bg-[var(--panel)] p-5">
+                <div key={item.title} className="glass-panel rounded-[1.5rem] border border-[var(--line)] p-5">
                   <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--surface-alt)] text-[var(--accent)]">{item.icon}</div>
                   <h3 className="mt-4 text-xl font-semibold tracking-[-0.04em] text-[var(--text)]">{item.title}</h3>
                   <p className="mt-2 text-sm leading-6 text-[var(--muted)]">{item.body}</p>

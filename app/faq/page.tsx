@@ -25,7 +25,7 @@ export default function FaqPage() {
             description="Straight answers about the kind of work Web Nivo supports, what’s included, and how projects usually move from idea to launch."
           />
 
-          <label className="mx-auto mt-10 flex max-w-2xl items-center gap-3 rounded-2xl border border-[var(--line)] bg-[var(--panel)] px-4 py-3 text-[var(--muted)] shadow-[var(--shadow-soft)]">
+          <label className="glass-subtle mx-auto mt-10 flex max-w-2xl items-center gap-3 rounded-2xl border border-[var(--line)] px-4 py-3 text-[var(--muted)]">
             <Search size={18} aria-hidden="true" />
             <input
               type="search"
@@ -42,14 +42,14 @@ export default function FaqPage() {
 
           <div className="mt-8 space-y-3">
             {filteredFaqs.length === 0 && (
-              <p className="rounded-2xl border border-[var(--line)] bg-[var(--panel)] px-5 py-6 text-center text-sm text-[var(--muted)]">
+              <p className="glass-panel rounded-2xl border border-[var(--line)] px-5 py-6 text-center text-sm text-[var(--muted)]">
                 No questions match that search. Try another term or contact Web Nivo.
               </p>
             )}
             {filteredFaqs.map((item, index) => {
               const open = openIndex === index;
               return (
-                <motion.div key={item.question} className="overflow-hidden rounded-[1.5rem] border border-[var(--line)] bg-[var(--panel)] shadow-[var(--shadow-soft)]" initial={false}>
+                <motion.div key={item.question} className="glass-panel overflow-hidden rounded-[1.5rem] border border-[var(--line)]" initial={false}>
                   <button
                     type="button"
                     className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
@@ -80,7 +80,7 @@ export default function FaqPage() {
             })}
           </div>
 
-          <div className="mt-16 rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-8 text-center shadow-[var(--shadow-soft)]">
+          <div className="glass-panel mt-16 rounded-[2rem] border border-[var(--line)] p-8 text-center">
             <p className="section-kicker">Need a more specific answer?</p>
             <h3 className="mt-4 text-3xl font-semibold tracking-[-0.05em] text-[var(--text)]">Tell Web Nivo what you’re trying to build.</h3>
             <Link href="/contact" className="brand-button mt-6 inline-flex items-center gap-2 rounded-full px-6 py-3 text-base font-medium text-white">

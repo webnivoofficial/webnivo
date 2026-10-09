@@ -54,7 +54,7 @@ export default function AboutPage() {
                   ["Digital systems", "The tools behind the website should support the work, not slow it down."],
                   ["Longer-term value", "The work should keep performing after launch and evolve with the business."],
                 ].map(([title, body]) => (
-                  <div key={title} className="rounded-[1.5rem] border border-[var(--line)] bg-[var(--surface)] p-4">
+                  <div key={title} className="glass-subtle rounded-[1.5rem] border border-[var(--line)] p-4">
                     <h3 className="text-lg font-semibold text-[var(--text)]">{title}</h3>
                     <p className="mt-2 text-sm leading-6 text-[var(--muted)]">{body}</p>
                   </div>

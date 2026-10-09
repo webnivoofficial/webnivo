@@ -210,7 +210,7 @@ function Navbar() {
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: 8 }}
                           transition={{ duration: 0.18 }}
-                          className="absolute left-1/2 top-full mt-3 w-64 -translate-x-1/2 rounded-[1.25rem] border border-[var(--line)] bg-[var(--bg-soft)] p-2 shadow-[var(--shadow-soft)] backdrop-blur-xl"
+                          className="glass-prominent absolute left-1/2 top-full mt-3 w-64 -translate-x-1/2 rounded-[1.25rem] border border-[var(--line)] p-2"
                         >
                           <Link
                             href="/services"
@@ -258,7 +258,7 @@ function Navbar() {
             <ThemeToggle />
             <button
               type="button"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--line)] bg-[var(--panel)] text-[var(--text)]"
+              className="glass-subtle flex h-11 w-11 items-center justify-center rounded-full border border-[var(--line)] text-[var(--text)]"
               aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
               aria-expanded={menuOpen}
               aria-controls="mobile-navigation"
@@ -285,7 +285,7 @@ function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.2 }}
-            className="mx-4 mt-3 max-h-[calc(100svh-6rem)] overflow-y-auto rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-4 shadow-[var(--shadow-soft)] backdrop-blur-xl lg:hidden"
+            className="glass-prominent mx-4 mt-3 max-h-[calc(100svh-6rem)] overflow-y-auto rounded-[2rem] border border-[var(--line)] p-4 lg:hidden"
           >
             <div className="flex flex-col gap-1">
               {primaryLinks.filter((item) => item.label !== "Services").map((item) => (

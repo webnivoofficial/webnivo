@@ -74,7 +74,7 @@ export default function ServicesPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.08 }}
-            className="mt-16 rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-6 shadow-[var(--shadow-soft)] sm:p-8"
+            className="glass-panel mt-16 rounded-[2rem] border border-[var(--line)] p-6 sm:p-8"
           >
             <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
               <div>

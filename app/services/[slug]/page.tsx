@@ -75,7 +75,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
               </h1>
               <p className="mt-5 max-w-2xl text-base leading-7 text-[var(--muted)] sm:text-lg">{service.detail}</p>
             </div>
-            <div className="rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-6 shadow-[var(--shadow-soft)]">
+            <div className="glass-panel rounded-[2rem] border border-[var(--line)] p-6">
               <ServicePreview slug={service.slug} />
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">Best for</p>
               <div className="mt-4 space-y-3">
@@ -97,7 +97,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
               "Design and UX direction",
               "Build, launch, and support",
             ].map((item, index) => (
-              <div key={item} className="rounded-[1.75rem] border border-[var(--line)] bg-[var(--panel)] p-6">
+              <div key={item} className="glass-panel rounded-[1.75rem] border border-[var(--line)] p-6">
                 <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--muted)]">0{index + 1}</p>
                 <h2 className="mt-3 text-xl font-semibold tracking-[-0.04em] text-[var(--text)]">{item}</h2>
                 <p className="mt-3 text-sm leading-6 text-[var(--muted)]">
@@ -107,7 +107,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
             ))}
           </div>
 
-          <div className="mt-16 rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-5 shadow-[var(--shadow-soft)] sm:p-8">
+          <div className="glass-panel mt-16 rounded-[2rem] border border-[var(--line)] p-5 sm:p-8">
             <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr]">
               <div>
                 <p className="section-kicker">How it works</p>
@@ -119,7 +119,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                   "Shape the structure, visual direction, and user flows with clarity and purpose.",
                   "Build the system, connect any needed data or tools, and launch with support in place.",
                 ].map((step, index) => (
-                  <div key={step} className="flex gap-4 rounded-[1.5rem] border border-[var(--line)] bg-[var(--surface)] p-4">
+                  <div key={step} className="glass-subtle flex gap-4 rounded-[1.5rem] border border-[var(--line)] p-4">
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--surface-alt)] font-semibold text-[var(--accent)]">
                       {index + 1}
                     </span>
@@ -150,7 +150,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
             </div>
           </div>
 
-          <div className="mt-16 rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-8 text-center">
+          <div className="glass-panel mt-16 rounded-[2rem] border border-[var(--line)] p-8 text-center">
             <p className="section-kicker">Start with the right next step</p>
             <h3 className="mt-4 text-3xl font-semibold tracking-[-0.05em] text-[var(--text)]">Need help deciding what your business should build?</h3>
             <Link href="/contact" className="brand-button mt-6 inline-flex items-center gap-2 rounded-full px-6 py-3 text-base font-medium text-white">

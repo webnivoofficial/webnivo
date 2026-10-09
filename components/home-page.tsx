@@ -239,7 +239,7 @@ export default function HomePage() {
             </div>
             <div className="mt-9 grid gap-4 md:grid-cols-3">
               {projects.map((project, index) => (
-                <Link key={project.title} href="/work" className="project-card group overflow-hidden rounded-[1.5rem] border border-[var(--line)] bg-[var(--panel)]">
+                <Link key={project.title} href="/work" className="glass-panel project-card group overflow-hidden rounded-[1.5rem] border border-[var(--line)]">
                   <div className={`project-stage relative h-48 overflow-hidden bg-gradient-to-br ${project.accent} p-3`}>
                     <div className="project-preview relative h-full overflow-hidden rounded-[1rem] border border-white/55 bg-[#fbf8f4] p-4 transition-transform duration-300 group-hover:scale-[1.015]">
                       <div className="flex items-center gap-1.5 border-b border-[#e8dfd5] pb-2">
@@ -293,7 +293,7 @@ export default function HomePage() {
         </section>
 
         <section className="section-shell pt-0 pb-24">
-          <div className="contact-cta-panel mx-auto max-w-7xl rounded-[2rem] border border-[var(--line)] p-8 text-center shadow-[var(--shadow-soft)] sm:p-12">
+          <div className="glass-prominent contact-cta-panel mx-auto max-w-7xl rounded-[2rem] border border-[var(--line)] p-8 text-center sm:p-12">
             <p className="section-kicker">Start with a conversation</p>
             <h2 className="mx-auto mt-4 max-w-3xl text-[clamp(2.2rem,5vw,3.7rem)] font-semibold leading-[0.98] tracking-[-0.065em] text-[var(--text)]">
               Have a business challenge in mind?

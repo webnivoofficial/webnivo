@@ -28,7 +28,7 @@ export default function WorkPage() {
                 className="glass-panel overflow-hidden rounded-[2rem] border border-[var(--line)] shadow-[var(--shadow-soft)]"
               >
                 <div className="grid gap-6 p-4 lg:grid-cols-[1.3fr_0.7fr] lg:p-6">
-                  <div className="rounded-[1.6rem] border border-[var(--line)] bg-[var(--surface)] p-3">
+                  <div className="glass-subtle rounded-[1.6rem] border border-[var(--line)] p-3">
                     <div className={`project-preview ${project.preview}`}>
                       <div className="project-browser-bar">
                         <div className="project-browser-dots"><span /><span /><span /></div>
