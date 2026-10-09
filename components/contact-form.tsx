@@ -246,7 +246,7 @@ export function ProjectInquiryForm() {
                           className={`flex items-center justify-between rounded-2xl border px-4 py-3 text-left text-sm font-medium transition ${
                             checked
                               ? "border-[var(--accent)] bg-[var(--surface-alt)] text-[var(--text)]"
-                              : "border-[var(--line)] bg-[var(--surface)] text-[var(--muted)]"
+                              : "glass-subtle border-[var(--line)] text-[var(--muted)]"
                           }`}
                         >
                           <span>{option}</span>
@@ -295,7 +295,7 @@ export function ProjectInquiryForm() {
                         className={`flex-1 rounded-2xl border px-4 py-3 text-sm font-medium transition ${
                           formData.preferredContact === option
                             ? "border-[var(--accent)] bg-[var(--surface-alt)] text-[var(--text)]"
-                            : "border-[var(--line)] bg-[var(--surface)] text-[var(--muted)]"
+                            : "glass-subtle border-[var(--line)] text-[var(--muted)]"
                         }`}
                       >
                         {option}

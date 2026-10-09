@@ -103,7 +103,7 @@ export default function HomePage() {
     <SiteShell>
       <main>
         <section className="section-shell hero-section relative overflow-hidden pt-16 sm:pt-20">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_75%_18%,_rgba(173,123,78,0.12),transparent_42%)]" />
+          <div className="hero-ambient-wash pointer-events-none absolute inset-0" />
           <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[1.08fr_0.92fr] lg:gap-14 lg:px-8">
             <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
               <p className="section-kicker">Web Nivo · Digital solutions</p>
