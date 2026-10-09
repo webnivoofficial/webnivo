@@ -33,7 +33,7 @@ export default function DigitalSolutionsPage() {
                 initial={{ opacity: 0, y: 22 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.42, delay: index * 0.06 }}
-                className="rounded-[1.75rem] border border-[var(--line)] bg-[var(--panel)] p-6 shadow-[var(--shadow-soft)]"
+                className="glass-panel rounded-[1.75rem] border border-[var(--line)] p-6 shadow-[var(--shadow-soft)]"
               >
                 <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--surface-alt)] text-[var(--accent)] font-semibold">
                   {block.icon}
@@ -44,7 +44,7 @@ export default function DigitalSolutionsPage() {
             ))}
           </div>
 
-          <div className="mt-20 rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-6 shadow-[var(--shadow-soft)] sm:p-8 lg:p-10">
+          <div className="glass-panel mt-20 rounded-[2rem] border border-[var(--line)] p-6 sm:p-8 lg:p-10">
             <div className="mb-8 max-w-2xl">
               <p className="section-kicker">Connected system</p>
               <h2 className="mt-3 text-3xl font-semibold tracking-[-0.05em] text-[var(--text)] sm:text-4xl">
@@ -54,25 +54,25 @@ export default function DigitalSolutionsPage() {
 
             <div className="grid gap-6 lg:grid-cols-7">
               {[
-                { label: "Website", icon: "W" },
-                { label: "Customers", icon: "C" },
-                { label: "Orders", icon: "O" },
-                { label: "Data", icon: "D" },
-                { label: "Auth", icon: "A" },
-                { label: "Admin", icon: "Ad" },
-                { label: "Support", icon: "S" },
+                { label: "Website", kind: "website" },
+                { label: "Customers", kind: "customers" },
+                { label: "Orders", kind: "orders" },
+                { label: "Data", kind: "data" },
+                { label: "Auth", kind: "auth" },
+                { label: "Admin", kind: "admin" },
+                { label: "Support", kind: "support" },
               ].map((item, index) => (
                 <motion.div
                   key={item.label}
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.35, delay: index * 0.05 }}
-                  className="rounded-[1.4rem] border border-[var(--line)] bg-[var(--surface)] p-4 text-center"
+                  className="system-node text-center"
                 >
-                  <div className="mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-[var(--surface-alt)] font-semibold text-[var(--accent)]">
-                    {item.icon}
+                  <div className={`system-node-mark system-node-mark-${item.kind}`} aria-hidden="true">
+                    <i /><i /><i /><i />
                   </div>
-                  <span className="text-xs uppercase tracking-[0.12em] text-[var(--muted)]">{item.label}</span>
+                  <span className="text-[10px] uppercase tracking-[0.12em] text-[var(--muted)]">{item.label}</span>
                 </motion.div>
               ))}
             </div>
@@ -103,7 +103,7 @@ export default function DigitalSolutionsPage() {
             </div>
           </div>
 
-          <div className="mt-20 rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-7 text-center shadow-[var(--shadow-soft)]">
+          <div className="glass-panel mt-20 rounded-[2rem] border border-[var(--line)] p-7 text-center">
             <p className="section-kicker">Need a connected solution?</p>
             <h3 className="mt-4 text-3xl font-semibold tracking-[-0.05em] text-[var(--text)]">Let’s map the right digital system for your business.</h3>
             <Link href="/contact" className="brand-button mt-6 inline-flex items-center gap-2 rounded-full px-6 py-3 text-base font-medium text-white">

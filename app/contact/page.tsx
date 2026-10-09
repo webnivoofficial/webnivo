@@ -25,7 +25,7 @@ export default function ContactPage() {
 
           <div className="mt-14 grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
             <div className="space-y-5">
-              <div className="rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-6 shadow-[var(--shadow-soft)]">
+              <div className="glass-panel rounded-[2rem] border border-[var(--line)] p-6 shadow-[var(--shadow-soft)]">
                 <p className="section-kicker">Reach out</p>
                 <h3 className="mt-3 text-2xl font-semibold tracking-[-0.05em] text-[var(--text)]">Prefer a quick conversation?</h3>
                 <div className="mt-5 space-y-4 text-sm text-[var(--muted)]">
@@ -40,7 +40,7 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              <div className="rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-6 shadow-[var(--shadow-soft)]">
+              <div className="glass-panel rounded-[2rem] border border-[var(--line)] p-6 shadow-[var(--shadow-soft)]">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--muted)]">What happens next</p>
                 <ul className="mt-4 space-y-3 text-sm leading-6 text-[var(--muted)]">
                   <li>1. Web Nivo reviews your goals and business context.</li>
@@ -53,7 +53,7 @@ export default function ContactPage() {
             <ProjectInquiryForm />
           </div>
 
-          <div className="mt-16 rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-7 shadow-[var(--shadow-soft)] text-center">
+          <div className="glass-panel mt-16 rounded-[2rem] border border-[var(--line)] p-7 text-center shadow-[var(--shadow-soft)]">
             <p className="section-kicker">Need a direction first?</p>
             <h3 className="mt-4 text-3xl font-semibold tracking-[-0.05em] text-[var(--text)]">Explore the services page to see what Web Nivo can build.</h3>
             <Link href="/services" className="brand-button mt-6 inline-flex items-center gap-2 rounded-full px-6 py-3 text-base font-medium text-white">

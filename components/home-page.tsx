@@ -74,7 +74,7 @@ function HeroComposition() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.25, duration: 0.4 }}
       >
-        <div className="widget-heading"><span>Today&apos;s bookings</span><CalendarCheck2 size={14} /></div>
+        <div className="widget-heading"><span>Booking preview</span><CalendarCheck2 size={14} /></div>
         <strong>24 <small>reservations</small></strong>
         <div className="widget-booking-row"><span>10:30</span><span>Table for two</span><i /></div>
         <div className="widget-booking-row"><span>12:00</span><span>Table for four</span><i /></div>

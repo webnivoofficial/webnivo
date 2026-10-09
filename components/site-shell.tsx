@@ -362,11 +362,20 @@ export function PageIntro({
 }
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const page = pathname.split("/").filter(Boolean)[0] || "home";
+
   return (
     <>
-      <Navbar />
-      <div className="min-h-screen pt-24">{children}</div>
-      <footer className="border-t border-[var(--line)] bg-[var(--bg-soft)]/80">
+      <div className="site-atmosphere" data-page={page} aria-hidden="true">
+        <span className="ambient-grid" />
+        <span className="ambient-orb ambient-orb-one" />
+        <span className="ambient-orb ambient-orb-two" />
+      </div>
+      <div className="site-frame">
+        <Navbar />
+        <div className="min-h-screen pt-24">{children}</div>
+        <footer className="border-t border-[var(--line)] bg-[var(--glass-footer)]">
         <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[1.2fr_0.8fr_0.8fr_1fr] lg:px-8">
           <div>
             <Image src="/web-nivo-logo.png" alt="Web Nivo logo" width={130} height={44} className="h-10 w-auto" />
@@ -417,7 +426,8 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
             </ul>
           </div>
         </div>
-      </footer>
+        </footer>
+      </div>
     </>
   );
 }

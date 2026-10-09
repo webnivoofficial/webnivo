@@ -29,7 +29,7 @@ export default function AboutPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45 }}
-              className="rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-8 shadow-[var(--shadow-soft)]"
+              className="glass-panel rounded-[2rem] border border-[var(--line)] p-8 shadow-[var(--shadow-soft)]"
             >
               <p className="section-kicker">Our approach</p>
               <h2 className="mt-4 text-3xl font-semibold tracking-[-0.05em] text-[var(--text)] sm:text-4xl">Simple process. Strong outcomes.</h2>
@@ -45,7 +45,7 @@ export default function AboutPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: 0.05 }}
-              className="rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-6 shadow-[var(--shadow-soft)]"
+              className="glass-panel rounded-[2rem] border border-[var(--line)] p-6 shadow-[var(--shadow-soft)]"
             >
               <div className="grid gap-4 sm:grid-cols-2">
                 {[
@@ -72,7 +72,7 @@ export default function AboutPage() {
                   initial={{ opacity: 0, y: 22 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.35, delay: index * 0.06 }}
-                  className="rounded-[1.75rem] border border-[var(--line)] bg-[var(--panel)] p-6 shadow-[var(--shadow-soft)]"
+                  className="glass-panel rounded-[1.75rem] border border-[var(--line)] p-6 shadow-[var(--shadow-soft)]"
                 >
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--surface-alt)] text-[var(--accent)]">{item.icon}</div>
                   <h3 className="mt-4 text-xl font-semibold tracking-[-0.04em] text-[var(--text)]">{item.title}</h3>
@@ -82,7 +82,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="mt-20 rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-8 text-center shadow-[var(--shadow-soft)]">
+          <div className="glass-panel mt-20 rounded-[2rem] border border-[var(--line)] p-8 text-center shadow-[var(--shadow-soft)]">
             <p className="section-kicker">Let’s build something useful</p>
             <h3 className="mt-4 text-3xl font-semibold tracking-[-0.05em] text-[var(--text)]">Need a better digital presence for your business?</h3>
             <Link href="/contact" className="brand-button mt-6 inline-flex items-center gap-2 rounded-full px-6 py-3 text-base font-medium text-white">

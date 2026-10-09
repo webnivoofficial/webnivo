@@ -25,7 +25,7 @@ export default function WorkPage() {
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.45, delay: index * 0.05 }}
-                className="overflow-hidden rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] shadow-[var(--shadow-soft)]"
+                className="glass-panel overflow-hidden rounded-[2rem] border border-[var(--line)] shadow-[var(--shadow-soft)]"
               >
                 <div className="grid gap-6 p-4 lg:grid-cols-[1.3fr_0.7fr] lg:p-6">
                   <div className="rounded-[1.6rem] border border-[var(--line)] bg-[var(--surface)] p-3">

@@ -30,7 +30,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const service = services.find((item) => item.slug === slug);
+  const service = services.find((item) => item.slug === (serviceSlugAliases[slug] ?? slug));
 
   return service
     ? { title: service.title, description: service.detail }

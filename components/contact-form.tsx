@@ -131,7 +131,7 @@ export function ProjectInquiryForm() {
 
   if (submitted) {
     return (
-      <div role="status" className="rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-8 shadow-[var(--shadow-soft)]">
+      <div role="status" className="glass-prominent rounded-[2rem] border border-[var(--line)] p-8 shadow-[var(--shadow-soft)]">
         <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--surface-alt)] text-[var(--accent)]">
           <Check size={24} />
         </div>
@@ -155,7 +155,7 @@ export function ProjectInquiryForm() {
   }
 
   return (
-    <div className="rounded-[2rem] border border-[var(--line)] bg-[var(--panel)] p-4 shadow-[var(--shadow-soft)] sm:p-6 lg:p-8">
+    <div className="glass-prominent rounded-[2rem] border border-[var(--line)] p-4 shadow-[var(--shadow-soft)] sm:p-6 lg:p-8">
       <div className="mb-6 flex items-center gap-2 overflow-x-auto pb-2">
         {stepList.map((step, index) => (
           <div key={step.key} className="flex items-center gap-2 whitespace-nowrap">
