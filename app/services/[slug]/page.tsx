@@ -33,8 +33,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const service = services.find((item) => item.slug === (serviceSlugAliases[slug] ?? slug));
 
   return service
-    ? { title: service.title, description: service.detail }
-    : { title: "Service not found" };
+    ? {
+        title: service.title,
+        description: service.detail,
+        alternates: {
+          canonical: `/services/${service.slug}`,
+        },
+      }
+    : { title: "Service not found", robots: { index: false, follow: false } };
 }
 
 export default async function ServiceDetailPage({ params }: { params: Promise<{ slug: string }> }) {

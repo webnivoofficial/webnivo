@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   title: "Contact",
   description:
     "Tell Web Nivo about your business, project goals, and the digital solution you need.",
+  alternates: {
+    canonical: "/contact",
+  },
 };
 
 export default function ContactPage() {
